@@ -17,7 +17,7 @@
       crossorigin="anonymous"
     />
     <!-- CSS -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/Page1styles.css" />
 
     <!-- Bootstrap Script -->
     <script
@@ -86,10 +86,10 @@
     <section id="search">
       <div class="search-box">
         <!-- remove return false later cause it prevents reload onsubmit="return false"-->
-        <form id="myForm" action="display.html">
+        <form class="myForm" action="/display.html" method="POST">
           <label for="drug">Enter the Drug Name</label><br />
           <input type="text" id="drug" name="drug_name" /><br />
-          <input type="submit" value="Submit" onclick="myFunction()">
+          <button type="submit">Search</button>
         </form>      
       </div>
     </section>
@@ -97,8 +97,7 @@
     <!-- Footer -->
 
     <footer id="footer">
-      <p>© Copyright 2018 TinDog</p>
+      <p>© Copyright 2020 Gem Drugs</p>
     </footer>
-    <script src="jS/script.js"></script>
   </body>
 </html>
