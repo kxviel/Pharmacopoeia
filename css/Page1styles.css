@@ -1,16 +1,16 @@
 /* ------------------|| Body Styles */
 
 #title {
-  background-color: #efbbcf;
+  background-color: #1d2d50;
 }
 
 #features {
-  background-color: #fcf1f1;
+  background-color: #133b5c;
   padding: 4% 4%;
 }
 
-#search{
-  background-color: #ffd5cd;
+#search {
+  background-color: #1e5f74;
   padding: 4% 4%;
 }
 
@@ -18,8 +18,9 @@
 
 h1 {
   font-family: "Montserrat-Black";
-  font-size: 3rem;
+  font-size: 2.5rem;
   line-height: 1.5;
+  color: white;
 }
 
 .navbar-brand {
@@ -27,6 +28,9 @@ h1 {
   font-size: 3.5rem;
 }
 
+.label{
+  color: white;
+}
 /* ------------------|| Div Styles */
 
 .container-fluid {
@@ -39,29 +43,32 @@ h1 {
 }
 
 /* ------------------|| Widget Styles */
+.search-btn{
+  border: none;
+  padding: 1% 1%;
+  border-radius: 50px;
+background: #fcdab7;
+
+}
 
 .card {
+  color: white;
   text-align: center;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(145deg, #e6c0b9, #ffe4db);
-  box-shadow: 20px 20px 60px #d9b5ae, -20px -20px 60px #fff5ec;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #1b5668, #20667c);
+  box-shadow: 5px 5px 16px #0e2b34, -5px -5px 16px #2f93b4;
 }
 
 input[type="text"] {
   width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  background-color: #fcf1f1;
+  box-sizing: none;
+  border-radius: 50px;
   border: none;
-  color: black;
-  padding: 16px 32px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
+background: #fcdab7;
+box-shadow: inset 20px 20px 60px #b09980, 
+            inset -20px -20px 60px #ffffee;
 }

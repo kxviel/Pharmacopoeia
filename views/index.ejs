@@ -1,18 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=drugName%></title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap&family=Montserrat:wght@300&family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/Page2styles.css" />
-</head>
-<body>
-    <h1>Drug: <%=drugName%></h1>
-    <p>Dosage Form: <%=dosageForm%></p>
-    <p>Brand Name: <%=brandName%></p>
-    <p>Administration Route: <%=route%></p>
-    <p>Commonly Used For: <%=pharmClass%></p>
-    
-   
-</body>
+  </head>
+  <body>
+    <header>
+      <h2><%=drugName%></h2>
+    </header>
+
+    <section>
+      <article>
+        <div><h1><%=drugName%></h1></div>
+
+        <div>
+          <h3>Dosage Form</h3>
+          <p><%=dosageForm%></p>
+        </div>
+        <hr />
+        <div>
+          <h3>Brand Name</h3>
+          <p><%=brandName%></p>
+        </div>
+        <hr />
+        <div>
+          <h3>Administration Route</h3>
+          <p><%=route%></p>
+        </div>
+        <hr />
+        <div>
+          <h3>Commonly Used For</h3>
+          <p><%=pharmClass%></p>
+        </div>
+      </article>
+      <nav>
+        <ul>
+          <h6>History</h6>
+          <li><a href="#">blah</a></li>
+          <li><a href="#">blah</a></li>
+          <li><a href="#">blah</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <footer>
+      <p>Blah</p>
+    </footer>
+  </body>
 </html>
