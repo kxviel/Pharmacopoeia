@@ -9,14 +9,13 @@ app.set("view engine", "ejs");
 app.use(bodyP.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
+
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/login.html");
 });
 app.post("/home.html", function(req,res){
   res.sendFile(__dirname + "/home.html");
 });
-
-
 
 app.post("/display.html", function (req, res) {
   var query = req.body.drug_name;
@@ -74,7 +73,7 @@ app.post("/display.html", function (req, res) {
               "', '" +
               form +
               "')";
-            connection.query(sql, function (err, result) {
+            con.query(sql, function (err, result) {
               res.render("index", {
                 drugName: drug_name,
                 dosageForm: form,
