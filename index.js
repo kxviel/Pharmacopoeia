@@ -10,8 +10,13 @@ app.use(bodyP.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/login.html");
 });
+app.post("/home.html", function(req,res){
+  res.sendFile(__dirname + "/home.html");
+});
+
+
 
 app.post("/display.html", function (req, res) {
   var query = req.body.drug_name;
