@@ -1,16 +1,18 @@
 /* ------------------|| Body Styles */
 
-#title {
-  background-color: #1d2d50;
+body {
+  background-color: #4834d4;
+  background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
+
 }
 
 #features {
-  background-color: #133b5c;
+  
   padding: 4% 4%;
 }
 
 #search {
-  background-color: #1e5f74;
+  
   padding: 4% 4%;
 }
 
@@ -51,15 +53,15 @@ background: #fcdab7;
 
 }
 
-.card {
+/* .card {
   color: white;
   text-align: center;
   border: none;
-  border-radius: 50px;
-  border-radius: 50px;
-  background: linear-gradient(145deg, #1b5668, #20667c);
-  box-shadow: 5px 5px 16px #0e2b34, -5px -5px 16px #2f93b4;
-}
+  border-radius: 27px;
+  background: #5200AE;
+  box-shadow: inset 5px 5px 10px #470096, 
+              inset -5px -5px 10px #5d00c6;
+} */
 
 input[type="text"] {
   width: 50%;
