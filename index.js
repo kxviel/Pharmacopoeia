@@ -4,7 +4,10 @@ const express = require("express");
 const https = require("https");
 const bodyP = require("body-parser");
 const mysql = require("mysql");
+const jsdom = require("jsdom");
 
+const doc = jsdom.JSDOM;
+const win = doc.defaultView;
 const app = express();
 
 //------------------------------------------------------------------//
@@ -87,14 +90,13 @@ app.post("/display.html", function (req, res) {
         body += data;
       });
       response2.on("end", function () {
-        var resp = JSON.parse(body);
         res.render("index", {
           drugName: drugName,
           dosageForm: dosageForm,
           brandName: brandName,
           route: route,
           pharmClass: pharmClass,
-          pp: resp.results[0].pharmacodynamics,
+          pp: JSON.parse(body).results[0].pharmacodynamics,
         });
       });
     });

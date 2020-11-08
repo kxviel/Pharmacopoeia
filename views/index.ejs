@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -33,54 +38,48 @@
     ></script>
   </head>
   <body>
-    <div class="container-fluid">
-      <!-- Nav Bar -->
+    <section id="body">
+      <div class="container-fluid">
+        <!-- Nav Bar -->
 
-      <nav class="navbar navbar-dark">
-        <span class="navbar-brand mb-0 h1">Gem Drugs</span>
-      </nav>
-    </div>
-
-    <section>
-      <article>
-        <div><h1><%=drugName%></h1></div>
-
-        <div>
-          <h3>Dosage Form</h3>
-          <p><%=dosageForm%></p>
-        </div>
-        <hr />
-        <div>
-          <h3>Brand Name</h3>
-          <p><%=brandName%></p>
-        </div>
-        <hr />
-        <div>
-          <h3>Administration Route</h3>
-          <p><%=route%></p>
-        </div>
-        <hr />
-        <div>
-          <h3>Commonly Used For</h3>
-          <p><%=pharmClass%></p>
-        </div>
-        <div>
-          <h3>Pharmacodynamics</h3>
-          <p><%=pp%></p>
-        </div>
-      </article>
-      <nav>
-        <ul>
-          <h6>History</h6>
-          <li><a href="#">blah</a></li>
-          <li><a href="#">blah</a></li>
-          <li><a href="#">blah</a></li>
-        </ul>
-      </nav>
+        <nav class="navbar navbar-dark">
+          <span id="a" class="navbar-brand mb-0 h1">Gem Drugs</span>
+          <span id="b" class="navbar-brand mb-0 h1"><%=drugName%></span>
+          <span id="c" class="navbar-brand mb-0 h1">History</span>
+          <span id="c" class="navbar-brand mb-0 h1">Back</span>
+        </nav>
+      </div>
+      <div class="sized-box"> </div>
+      <section id="main-section">
+        <article>
+          <div>
+            <h3>Dosage Form</h3>
+            <p><%=dosageForm%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Brand Name</h3>
+            <p><%=brandName%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Administration Route</h3>
+            <p><%=route%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Commonly Used For</h3>
+            <p><%=pharmClass%></p>
+          </div>
+          <div>
+            <h3>Pharmacodynamics</h3>
+            <p><%=pp%></p>
+          </div>
+        </article>
+      </section>
+      <footer>
+        <span>Blah</span>
+      </footer>
     </section>
-
-    <footer>
-      <p>Blah</p>
-    </footer>
   </body>
 </html>

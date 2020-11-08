@@ -3,16 +3,13 @@
 body {
   background-color: #4834d4;
   background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
-
 }
 
 #features {
-  
   padding: 4% 4%;
 }
 
 #search {
-  
   padding: 4% 4%;
 }
 
@@ -30,7 +27,7 @@ h1 {
   font-size: 3.5rem;
 }
 
-.label{
+.label {
   color: white;
 }
 /* ------------------|| Div Styles */
@@ -45,23 +42,12 @@ h1 {
 }
 
 /* ------------------|| Widget Styles */
-.search-btn{
+.search-btn {
   border: none;
   padding: 1% 1%;
   border-radius: 50px;
-background: #fcdab7;
-
+  background: #fcdab7;
 }
-
-/* .card {
-  color: white;
-  text-align: center;
-  border: none;
-  border-radius: 27px;
-  background: #5200AE;
-  box-shadow: inset 5px 5px 10px #470096, 
-              inset -5px -5px 10px #5d00c6;
-} */
 
 input[type="text"] {
   width: 50%;
@@ -70,7 +56,6 @@ input[type="text"] {
   box-sizing: none;
   border-radius: 50px;
   border: none;
-background: #fcdab7;
-box-shadow: inset 20px 20px 60px #b09980, 
-            inset -20px -20px 60px #ffffee;
+  background: #fcdab7;
+  box-shadow: inset 20px 20px 60px #b09980, inset -20px -20px 60px #ffffee;
 }

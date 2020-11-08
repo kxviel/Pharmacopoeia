@@ -1,10 +1,39 @@
+/* ------------------|| Body Styles */
+
 #result {
   padding: 4% 4%;
 }
 
-header {
-  background-color: #4c4177;
-  background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%);
+#body {
+  background-color: #537895;
+  background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+
   padding: 28px;
   color: white;
+}
+
+
+
+/* ------------------|| Font Styles */
+
+#a {
+  font-family: "Sacramento", cursive;
+  font-size: 3.5rem;
+}
+
+#b {
+  font-family: "Raleway", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+#c {
+  font-family: "Raleway", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 200;
+}
+
+.sized-box{
+  width: 100%;
+  height: 100px;
 }
