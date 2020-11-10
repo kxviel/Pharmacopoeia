@@ -4,41 +4,78 @@ const express = require("express");
 const https = require("https");
 const bodyP = require("body-parser");
 const mysql = require("mysql");
-const jsdom = require("jsdom");
-
-const doc = jsdom.JSDOM;
-const win = doc.defaultView;
 const app = express();
 
 //------------------------------------------------------------------//
 
 app.set("view engine", "ejs");
-app.use(bodyP.urlencoded({ extended: true }));
+app.use(bodyP.urlencoded({ extended: false }));
 app.use(express.static(__dirname));
 
 //------------------------------------------------------------------//
-
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "crysis123",
-//   database: "mydb",
-// });
+//use createPool instead of createConnection cause pool automatically opens and closes the connection
+var con = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "crysis123",
+  database: "mydb",
+});
 
 //------------------------------------------------------------------//
-
+//gets the requests frm '/' i.e. login screen
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/login.html");
 });
 
 //------------------------------------------------------------------//
-
+//posts the requested content to home or wherever u want it but in simple ... to home.html
+//so all the requests i.e. filling forms, radio buttons,etc get posted to the home.html
+//aka, i can use /login.html or /signup.html values here for further coding
 app.post("/home.html", function (req, res) {
-  res.sendFile(__dirname + "/home.html");
+  //using these two above variables as my road dividers
+  //if signinname == undefined it means user logged in
+  //if loginpass == undefined it means user signed up
+  if (req.body.signinname == undefined) {
+    console.log("User Logged In ");
+  } else if (req.body.loginpass == undefined) {
+    var name = req.body.signinname;
+    var email = req.body.signinemail;
+    var username = req.body.signinusername;
+    var password = req.body.signinpassword;
+    //CREATE TABLE `users` (`ID` int NOT NULL AUTO_INCREMENT, `name` varchar(100) NOT NULL,`email` varchar(255) NOT NULL,`username` varchar(255) NOT NULL,`password` varchar(255) NOT NULL, PRIMARY KEY (ID));
+
+    var sql = "SELECT * FROM users WHERE email ='" +email+ "'";
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log(result);
+      if (result.length == 0) {
+        var insertSQL =
+          "INSERT INTO `users` (`name`, `email`, `username`, `password`) VALUES ('" +
+          name +
+          "', '" +
+          email +
+          "', '" +
+          username +
+          "', '" +
+          password +
+          "')";
+        con.query(insertSQL, function (err,result) {
+          if (err) throw err;
+          console.log('Successful Added User');
+          res.sendFile(__dirname + "/home.html");
+        });
+      } else{
+        res.sendFile(__dirname + "/signupalert.html");
+      }
+    });
+  }
+
+  
 });
 
 //------------------------------------------------------------------//
-
+//posts the display html i.e. index.ejs using display.html as a template
+//all the code written inside is to wrok out the data and pass it to display.html(index.ejs)
 app.post("/display.html", function (req, res) {
   var query = req.body.drug_name;
   var type = "generic_name";
@@ -71,8 +108,6 @@ app.post("/display.html", function (req, res) {
       console.log("HTTP Call 1 Done");
 
       response1.on("data", function (data) {
-        //parse JSON data
-        //DB Table Name:ndc
         drugName = JSON.parse(data).results[0].generic_name;
         dosageForm = JSON.parse(data).results[0].dosage_form;
         brandName = JSON.parse(data).results[0].brand_name;
@@ -93,15 +128,20 @@ app.post("/display.html", function (req, res) {
         res.render("index", {
           drugName: drugName,
           dosageForm: dosageForm,
+          dosage: JSON.parse(body).results[0].dosage_forms_and_strengths,
+          oD: JSON.parse(body).results[0].overdosage,
           brandName: brandName,
           route: route,
           pharmClass: pharmClass,
-          pp: JSON.parse(body).results[0].pharmacodynamics,
+          pharm_dynamics: JSON.parse(body).results[0].pharmacodynamics,
+          descr: JSON.parse(body).results[0].description,
+          pedo: JSON.parse(body).results[0].pediatric_use,
         });
       });
     });
   }
 
+  //to make sure the functions are called orderwise
   one();
   two();
 });
@@ -113,3 +153,14 @@ app.listen(3000, function () {
 });
 
 //------------------------------------------------------------------//
+//CREATE TABLE `users` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),`password` varchar(255));
+// con.connect(function (err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+
+//   con.query(sql, function (err, result) {
+//     if (err) throw err;
+
+//   });
+
+// });

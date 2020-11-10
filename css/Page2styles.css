@@ -12,6 +12,11 @@
   color: white;
 }
 
+hr.hr-1 {
+  border: 0;
+  border-bottom: 2px dashed #eee;
+  background: #999;
+}
 
 
 /* ------------------|| Font Styles */
