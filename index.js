@@ -9,7 +9,9 @@ const app = express();
 //------------------------------------------------------------------//
 
 app.set("view engine", "ejs");
-app.use(bodyP.urlencoded({ extended: false }));
+app.use(bodyP.urlencoded({
+  extended: false
+}));
 app.use(express.static(__dirname));
 
 //------------------------------------------------------------------//
@@ -37,17 +39,46 @@ app.post("/home.html", function (req, res) {
   //if loginpass == undefined it means user signed up
   if (req.body.signinname == undefined) {
     console.log("User Logged In ");
+    var usernameL = req.body.loginusername;
+    var passwordL = req.body.loginpass;
+    var sqlu = "SELECT * FROM users WHERE username ='" + usernameL + "'";
+    var sqlp = "SELECT * FROM users WHERE password ='" + passwordL + "'";
+    con.query(sqlu, function (err, result) {
+      if (err) throw err;
+      //if username exists in DB
+      if (result.length == 1) {
+        //if user entered correct password
+        console.log("User Exists in DB");
+        con.query(sqlp, function (err, result) {
+          if (err) throw err;
+          if (result.length == 1) {
+            //if correct pass continue
+            console.log("Welcome " + usernameL);
+            res.sendFile(__dirname + "/home.html");
+          } else {
+            console.log("Wrong Password Bruh");
+            res.sendFile(__dirname + "/loginalert.html");
+          }
+        });
+      } else {
+        res.sendFile(__dirname + "/loginalert.html");
+      }
+    });
+
+
   } else if (req.body.loginpass == undefined) {
+    console.log("User Signed In ");
     var name = req.body.signinname;
     var email = req.body.signinemail;
     var username = req.body.signinusername;
     var password = req.body.signinpassword;
-    //CREATE TABLE `users` (`ID` int NOT NULL AUTO_INCREMENT, `name` varchar(100) NOT NULL,`email` varchar(255) NOT NULL,`username` varchar(255) NOT NULL,`password` varchar(255) NOT NULL, PRIMARY KEY (ID));
 
-    var sql = "SELECT * FROM users WHERE email ='" +email+ "'";
+    //sql query to check if there is a user with the same email in the DB
+    //If there is, then send err, else sign in successful
+    var sql = "SELECT * FROM users WHERE email ='" + email + "'";
     con.query(sql, function (err, result) {
       if (err) throw err;
-      console.log(result);
+      c
       if (result.length == 0) {
         var insertSQL =
           "INSERT INTO `users` (`name`, `email`, `username`, `password`) VALUES ('" +
@@ -59,18 +90,16 @@ app.post("/home.html", function (req, res) {
           "', '" +
           password +
           "')";
-        con.query(insertSQL, function (err,result) {
+        con.query(insertSQL, function (err, result) {
           if (err) throw err;
           console.log('Successful Added User');
           res.sendFile(__dirname + "/home.html");
         });
-      } else{
+      } else {
         res.sendFile(__dirname + "/signupalert.html");
       }
     });
   }
-
-  
 });
 
 //------------------------------------------------------------------//
@@ -124,19 +153,40 @@ app.post("/display.html", function (req, res) {
       response2.on("data", function (data) {
         body += data;
       });
+
+function three(){
+  res.render("index", {
+    drugName: drugName == null ? 'Data N/A': drugName,
+    dosageForm: dosageForm == null ? 'Data N/A': dosageForm,
+    dosage: JSON.parse(body).results[0].dosage_forms_and_strengths == null ? 'Data N/A': JSON.parse(body).results[0].dosage_forms_and_strengths,
+    oD: JSON.parse(body).results[0].overdosage == null ? 'Data N/A': JSON.parse(body).results[0].overdosage,
+    brandName: brandName == null ? 'Data N/A': brandName,
+    route: route == null ? 'Data N/A': route,
+    pharmClass: pharmClass == null ? 'Data N/A': pharmClass,
+    pharm_dynamics: JSON.parse(body).results[0].pharmacodynamics == null ? 'Data N/A': JSON.parse(body).results[0].pharmacodynamics,
+    descr: JSON.parse(body).results[0].description == null ? 'Data N/A': JSON.parse(body).results[0].description,
+    pedo: JSON.parse(body).results[0].pediatric_use == null ? 'Data N/A': JSON.parse(body).results[0].pediatric_use,
+  });
+}
+
       response2.on("end", function () {
-        res.render("index", {
-          drugName: drugName,
-          dosageForm: dosageForm,
-          dosage: JSON.parse(body).results[0].dosage_forms_and_strengths,
-          oD: JSON.parse(body).results[0].overdosage,
-          brandName: brandName,
-          route: route,
-          pharmClass: pharmClass,
-          pharm_dynamics: JSON.parse(body).results[0].pharmacodynamics,
-          descr: JSON.parse(body).results[0].description,
-          pedo: JSON.parse(body).results[0].pediatric_use,
+        var sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "'";
+        con.query(sql, function (err, result) {
+          if(err)throw err;
+          if (result.length == 1) { //if the drug name data exists in DB
+            console.log('Drug Exists in DB');
+            three();
+          } else { //if drug name doesnt exist in DB
+            //insert
+            console.log('Drug Doesnt Exist in DB');
+            var sql = "INSERT INTO `drugs` (`DrugName`, `dosage_form`, `dosage`, `overDosage`, `brandName`, `administrationRoute`, `pharmClass`, `pharmDynamics`, `description`, `pediatricUse`) VALUES ('" + drugName + "', '" + dosageForm + "', '" + JSON.parse(body).results[0].dosage_forms_and_strengths + "', '" + JSON.parse(body).results[0].overdosage + "', '" + brandName + "', '" + route + "','" + pharmClass + "','" + JSON.parse(body).results[0].pharmacodynamics + "','" + JSON.parse(body).results[0].description + "','" + JSON.parse(body).results[0].pediatric_use + "');"
+            con.query(sql, function (err, result) {
+              if(err)throw err;
+              three();
+            });
+          }
         });
+
       });
     });
   }
@@ -154,13 +204,4 @@ app.listen(3000, function () {
 
 //------------------------------------------------------------------//
 //CREATE TABLE `users` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),`password` varchar(255));
-// con.connect(function (err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-
-//   con.query(sql, function (err, result) {
-//     if (err) throw err;
-
-//   });
-
-// });
+//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `dosage_form` TEXT, `dosage` TEXT, `overDosage` TEXT, `brandName` varchar(255), `administrationRoute` TEXT, `pharmClass` TEXT, `pharmDynamics` TEXT, `description` TEXT, `pediatricUse` TEXT, PRIMARY KEY(drug_id));
