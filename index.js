@@ -9,9 +9,11 @@ const app = express();
 //------------------------------------------------------------------//
 
 app.set("view engine", "ejs");
-app.use(bodyP.urlencoded({
-  extended: false
-}));
+app.use(
+  bodyP.urlencoded({
+    extended: false,
+  })
+);
 app.use(express.static(__dirname));
 
 //------------------------------------------------------------------//
@@ -64,8 +66,6 @@ app.post("/home.html", function (req, res) {
         res.sendFile(__dirname + "/loginalert.html");
       }
     });
-
-
   } else if (req.body.loginpass == undefined) {
     console.log("User Signed In ");
     var name = req.body.signinname;
@@ -78,7 +78,7 @@ app.post("/home.html", function (req, res) {
     var sql = "SELECT * FROM users WHERE email ='" + email + "'";
     con.query(sql, function (err, result) {
       if (err) throw err;
-      c
+      c;
       if (result.length == 0) {
         var insertSQL =
           "INSERT INTO `users` (`name`, `email`, `username`, `password`) VALUES ('" +
@@ -92,7 +92,7 @@ app.post("/home.html", function (req, res) {
           "')";
         con.query(insertSQL, function (err, result) {
           if (err) throw err;
-          console.log('Successful Added User');
+          console.log("Successful Added User");
           res.sendFile(__dirname + "/home.html");
         });
       } else {
@@ -161,25 +161,30 @@ app.post("/display.html", function (req, res) {
       var contraindications = JSON.parse(body).results[0].contraindications;
       var pediatricuse = JSON.parse(body).results[0].pediatric_use;
       var geriatricuse = JSON.parse(body).results[0].geriatric_use;
-      var infoforpatients = JSON.parse(body).results[0].information_for_patients;
+      var infoforpatients = JSON.parse(body).results[0]
+        .information_for_patients;
       var overdosage = JSON.parse(body).results[0].overdosage;
 
       function three() {
         res.render("index", {
-          drug_interactions: drugInteractions == null ? 'Data N/A' : drugInteractions,
-          indication_and_use: indicationanduse == null ? 'Data N/A' : indicationanduse,
-          contraindications: contraindications == null ? 'Data N/A' : contraindications,
-          info_for_patients: infoforpatients == null ? 'Data N/A' : infoforpatients,
-          geriatric_use: geriatricuse == null ? 'Data N/A' : geriatricuse,
-          drug_name: drugName == null ? 'Data N/A' : drugName,
-          dosage_form: dosageForm == null ? 'Data N/A' : dosageForm,
-          overdosage: overdosage == null ? 'Data N/A' : overdosage,
-          brand_name: brandName == null ? 'Data N/A' : brandName,
-          route: route == null ? 'Data N/A' : route,
-          pharm_class: pharmClass == null ? 'Data N/A' : pharmClass,
-          description: description == null ? 'Data N/A' : description,
-          pediatric_use: pediatricuse == null ? 'Data N/A' : pediatricuse,
-          labeler_name: labelerName == null ? 'Data N/A' : labelerName,
+          drug_interactions:
+            drugInteractions == null ? "Data N/A" : drugInteractions,
+          indication_and_use:
+            indicationanduse == null ? "Data N/A" : indicationanduse,
+          contraindications:
+            contraindications == null ? "Data N/A" : contraindications,
+          info_for_patients:
+            infoforpatients == null ? "Data N/A" : infoforpatients,
+          geriatric_use: geriatricuse == null ? "Data N/A" : geriatricuse,
+          drug_name: drugName == null ? "Data N/A" : drugName,
+          dosage_form: dosageForm == null ? "Data N/A" : dosageForm,
+          overdosage: overdosage == null ? "Data N/A" : overdosage,
+          brand_name: brandName == null ? "Data N/A" : brandName,
+          route: route == null ? "Data N/A" : route,
+          pharm_class: pharmClass == null ? "Data N/A" : pharmClass,
+          description: description == null ? "Data N/A" : description,
+          pediatric_use: pediatricuse == null ? "Data N/A" : pediatricuse,
+          labeler_name: labelerName == null ? "Data N/A" : labelerName,
         });
       }
 
@@ -187,20 +192,50 @@ app.post("/display.html", function (req, res) {
         var sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "'";
         con.query(sql, function (err, result) {
           if (err) throw err;
-          if (result.length == 1) { //if the drug name data exists in DB
-            console.log('Drug Exists in DB');
+          if (result.length == 1) {
+            //if the drug name data exists in DB
+            console.log("Drug Exists in DB");
             three();
-          } else { //if drug name doesnt exist in DB
+          } else {
+            //if drug name doesnt exist in DB
             //insert
-            console.log('Drug Doesnt Exist in DB');
-            var sql = "INSERT INTO `drugs` (`DrugName`, `dosage_form`, `dosage`, `overDosage`, `brandName`, `administrationRoute`, `pharmClass`, `pharmDynamics`, `description`, `pediatricUse`) VALUES ('" + drugName + "', '" + dosageForm + "', '" + JSON.parse(body).results[0].dosage_forms_and_strengths + "', '" + JSON.parse(body).results[0].overdosage + "', '" + brandName + "', '" + route + "','" + pharmClass + "','" + JSON.parse(body).results[0].pharmacodynamics + "','" + JSON.parse(body).results[0].description + "','" + JSON.parse(body).results[0].pediatric_use + "');"
+            console.log("Drug Doesnt Exist in DB");
+            var sql =
+              "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdministrationRoute`, `PharmClass`, `Description`, `PediatricUse`, `DrugInteractions`, `Indication&Use`, `Contraindications`, `InfoForPatients`, `GeriatricUse`, `LabelerName`) VALUES ('" +
+              drugName +
+              "', '" +
+              dosageForm +
+              "', '" +
+              overdosage +
+              "', '" +
+              brandName +
+              "', '" +
+              route +
+              "', '" +
+              pharmClass +
+              "', '" +
+              description +
+              "', '" +
+              pediatricuse +
+              "', '" +
+              drugInteractions +
+              "', '" +
+              indicationanduse +
+              "', '" +
+              contraindications +
+              "', '" +
+              infoforpatients +
+              "', '" +
+              geriatricuse +
+              "', '" +
+              labelerName +
+              "');";
             con.query(sql, function (err, result) {
               if (err) throw err;
               three();
             });
           }
         });
-
       });
     });
   }
@@ -218,4 +253,4 @@ app.listen(process.env.PORT || 3000, function () {
 
 //------------------------------------------------------------------//
 //CREATE TABLE `users` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),`password` varchar(255));
-//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `dosage_form` TEXT, `dosage` TEXT, `overDosage` TEXT, `brandName` varchar(255), `administrationRoute` TEXT, `pharmClass` TEXT, `pharmDynamics` TEXT, `description` TEXT, `pediatricUse` TEXT, PRIMARY KEY(drug_id));
+//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `DosageForm` TEXT, `OverDosage` TEXT, `BrandName` varchar(255), `AdministrationRoute` TEXT, `PharmClass` TEXT, `Description` TEXT, `PediatricUse` TEXT, `DrugInteractions` TEXT, `Indication&Use` TEXT, `Contraindications` TEXT, `InfoForPatients` TEXT, `GeriatricUse` TEXT, `LabelerName` TEXT, PRIMARY KEY(drug_id));
