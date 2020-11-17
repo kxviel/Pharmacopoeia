@@ -1,8 +1,7 @@
 /* ------------------|| Body Styles */
 
 body {
-  background-color: #4834d4;
-  background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
+  background: linear-gradient(to top left, #f1f4f9 0%, #89adf0 100%);
 }
 
 #features {
@@ -13,13 +12,20 @@ body {
   padding: 4% 4%;
 }
 
-/* ------------------|| Header Styles */
+/* ------------------|| Header & Font Styles */
 
 h1 {
   font-family: "Montserrat-Black";
   font-size: 2.5rem;
   line-height: 1.5;
-  color: white;
+  color: rgb(24, 21, 21);
+}
+
+h2 {
+  font-family: "Montserrat-Black";
+  font-size: 2.5rem;
+  line-height: 1.5;
+  color: rgb(24, 21, 21);
 }
 
 .navbar-brand {
@@ -28,25 +34,34 @@ h1 {
 }
 
 .label {
-  color: white;
+  color: rgb(24, 21, 21);
+}
+
+#footer {
+  text-align: center;
 }
 /* ------------------|| Div Styles */
 
 .container-fluid {
-  padding: 3% 15%;
+  padding: 3% 3%;
 }
 
 .search-box {
-  padding: 3% 15%;
+  padding: 3% 3%;
   text-align: center;
+}
+
+.sized-box {
+  width: 100%;
+  height: 77px;
 }
 
 /* ------------------|| Widget Styles */
 .search-btn {
   border: none;
   padding: 1% 1%;
-  border-radius: 50px;
-  background: #fcdab7;
+  border-radius: 2px;
+  background: none;
 }
 
 input[type="text"] {
@@ -54,8 +69,23 @@ input[type="text"] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: none;
-  border-radius: 50px;
   border: none;
-  background: #fcdab7;
-  box-shadow: inset 20px 20px 60px #b09980, inset -20px -20px 60px #ffffee;
+  border-radius: 50px;
+  background: #cce0ff;
+  box-shadow: inset 20px 20px 60px #adbed9, inset -20px -20px 60px #ebffff;
+}
+
+/* ------------------|| Nav Styles */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li a {
+  display: inline;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: rgb(24, 21, 21);
 }
