@@ -107,7 +107,7 @@ app.post("/home.html", function (req, res) {
 //all the code written inside is to wrok out the data and pass it to display.html(index.ejs)
 app.post("/display.html", function (req, res) {
   var query = req.body.drug_name;
-  var type = "generic_name";
+  var type = "brand_name";
   const apiKey = "S3DeKRRy8PtgRxfFGl5QbUlH0lxcAZ7QR2k8R9wH&";
   var urlLabel =
     "https://api.fda.gov/drug/label.json?api_key=" +
@@ -160,19 +160,18 @@ function three(){
   res.render("index", {
     drugName: drugName == null ? 'Data N/A': drugName,
     dosageForm: dosageForm == null ? 'Data N/A': dosageForm,
-    dosage: JSON.parse(body).results[0].dosage_forms_and_strengths == null ? 'Data N/A': JSON.parse(body).results[0].dosage_forms_and_strengths,
-    oD: JSON.parse(body).results[0].overdosage == null ? 'Data N/A': JSON.parse(body).results[0].overdosage,
+    OverDosage: JSON.parse(body).results[0]['overdosage'] == null ? 'Data N/A': JSON.parse(body).results[0]['overdosage'],
     brandName: brandName == null ? 'Data N/A': brandName,
-    route: route == null ? 'Data N/A': route,
-    pharmClass: pharmClass == null ? 'Data N/A': pharmClass,
-    pharm_dynamics: JSON.parse(body).results[0].pharmacodynamics == null ? 'Data N/A': JSON.parse(body).results[0].pharmacodynamics,
+    AdminRoute: route == null ? 'Data N/A': route,
+    PharmacologicalClass: pharmClass == null ? 'Data N/A': pharmClass,
+    LabelerName: labelerName == null ? 'Data N/A': labelerName,
     descr: JSON.parse(body).results[0].description == null ? 'Data N/A': JSON.parse(body).results[0].description,
     pedo: JSON.parse(body).results[0].pediatric_use == null ? 'Data N/A': JSON.parse(body).results[0].pediatric_use,
   });
 }
 
       response2.on("end", function () {
-        var sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "'";
+        let sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "'";
         con.query(sql, function (err, result) {
           if(err)throw err;
           if (result.length == 1) { //if the drug name data exists in DB
