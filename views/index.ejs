@@ -45,17 +45,47 @@
         <nav class="navbar navbar-dark">
           <span id="a" class="navbar-brand mb-0 h1">Gem Drugs</span>
           <span id="b" class="navbar-brand mb-0 h1"><%=drugName%></span>
-          <span id="c" class="navbar-brand mb-0 h1"
-            ><a href="#">History</a></span
-          >
-          <span id="c" class="navbar-brand mb-0 h1"
-            ><a href="/home.html">Back</a></span
-          >
+          <span id="c" class="navbar-brand mb-0 h1"><a href="#">History</a></span>
+          <span id="c" class="navbar-brand mb-0 h1"><a href="/home.html">Back</a></span>
         </nav>
       </div>
       <div class="sized-box"></div>
       <section id="main-section">
         <article>
+          <div>
+            <h3>Brand Name</h3>
+            <p><%=brandName%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Description</h3>
+            <p><%=descr%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Pediatric Use</h3>
+            <p><%=pedo%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Dosage Details</h3>
+            <h5>- Dosage Form:</h5>
+            <p><%=dosageForm%></p>
+            <h5>- Dosage:</h5>
+            <p><%=dosage%></p>
+            <h5>- Over Dosage:</h5>
+            <p><%=oD%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Administration Route</h3>
+            <p><%=route%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Commonly Used For</h3>
+            <p><%=pharmClass%></p>
+          </div>
           <div>
             <h3>Pharmacodynamics</h3>
             <p><%=pharm_dynamics%></p>
@@ -63,7 +93,7 @@
         </article>
       </section>
       <div class="sized-box"></div>
-      <hr class="hr-1" />
+      <hr class="hr-1">
       <footer>
         <h2><span>Pharmacies Near Me</span></h2>
       </footer>

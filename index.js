@@ -9,11 +9,9 @@ const app = express();
 //------------------------------------------------------------------//
 
 app.set("view engine", "ejs");
-app.use(
-  bodyP.urlencoded({
-    extended: false,
-  })
-);
+app.use(bodyP.urlencoded({
+  extended: false
+}));
 app.use(express.static(__dirname));
 
 //------------------------------------------------------------------//
@@ -66,6 +64,8 @@ app.post("/home.html", function (req, res) {
         res.sendFile(__dirname + "/loginalert.html");
       }
     });
+
+
   } else if (req.body.loginpass == undefined) {
     console.log("User Signed In ");
     var name = req.body.signinname;
@@ -78,7 +78,7 @@ app.post("/home.html", function (req, res) {
     var sql = "SELECT * FROM users WHERE email ='" + email + "'";
     con.query(sql, function (err, result) {
       if (err) throw err;
-      c;
+      c
       if (result.length == 0) {
         var insertSQL =
           "INSERT INTO `users` (`name`, `email`, `username`, `password`) VALUES ('" +
@@ -92,7 +92,7 @@ app.post("/home.html", function (req, res) {
           "')";
         con.query(insertSQL, function (err, result) {
           if (err) throw err;
-          console.log("Successful Added User");
+          console.log('Successful Added User');
           res.sendFile(__dirname + "/home.html");
         });
       } else {
@@ -107,7 +107,7 @@ app.post("/home.html", function (req, res) {
 //all the code written inside is to wrok out the data and pass it to display.html(index.ejs)
 app.post("/display.html", function (req, res) {
   var query = req.body.drug_name;
-  var type = "brand_name";
+  var type = "generic_name";
   const apiKey = "S3DeKRRy8PtgRxfFGl5QbUlH0lxcAZ7QR2k8R9wH&";
   var urlLabel =
     "https://api.fda.gov/drug/label.json?api_key=" +
@@ -126,24 +126,24 @@ app.post("/display.html", function (req, res) {
     query +
     "&limit=2";
 
-  var drugName;
-  var dosageForm;
-  var brandName;
-  var route;
-  var pharmClass;
-  var labelerName;
+  let drugName;
+  let dosageForm;
+  let brandName;
+  let route;
+  let pharmClass;
+  let labelerName;
 
   function one() {
     https.get(urlNdc, function (response1) {
       console.log("HTTP Call 1 Done");
 
       response1.on("data", function (data) {
-        drugName = JSON.parse(data).results[0].generic_name;
-        dosageForm = JSON.parse(data).results[0].dosage_form;
-        brandName = JSON.parse(data).results[0].brand_name;
-        route = JSON.parse(data).results[0].route;
-        pharmClass = JSON.parse(data).results[0].pharm_class;
-        labelerName = JSON.parse(data).results[0].labeler_name;
+        drugName = JSON.parse(data).results[0]['generic_name'];
+        dosageForm = JSON.parse(data).results[0]['dosage_form'];
+        brandName = JSON.parse(data).results[0]['brand_name'];
+        route = JSON.parse(data).results[0]['route'];
+        pharmClass = JSON.parse(data).results[0]['pharm_class'];
+        labelerName = JSON.parse(data).results[0]["labeler_name"];
       });
     });
   }
@@ -155,87 +155,43 @@ app.post("/display.html", function (req, res) {
       response2.on("data", function (data) {
         body += data;
       });
-      var drugInteractions = JSON.parse(body).results[0].drug_interactions;
-      var description = JSON.parse(body).results[0].description;
-      var indicationanduse = JSON.parse(body).results[0].indications_and_usage;
-      var contraindications = JSON.parse(body).results[0].contraindications;
-      var pediatricuse = JSON.parse(body).results[0].pediatric_use;
-      var geriatricuse = JSON.parse(body).results[0].geriatric_use;
-      var infoforpatients = JSON.parse(body).results[0]
-        .information_for_patients;
-      var overdosage = JSON.parse(body).results[0].overdosage;
 
-      function three() {
-        res.render("index", {
-          drug_interactions:
-            drugInteractions == null ? "Data N/A" : drugInteractions,
-          indication_and_use:
-            indicationanduse == null ? "Data N/A" : indicationanduse,
-          contraindications:
-            contraindications == null ? "Data N/A" : contraindications,
-          info_for_patients:
-            infoforpatients == null ? "Data N/A" : infoforpatients,
-          geriatric_use: geriatricuse == null ? "Data N/A" : geriatricuse,
-          drug_name: drugName == null ? "Data N/A" : drugName,
-          dosage_form: dosageForm == null ? "Data N/A" : dosageForm,
-          overdosage: overdosage == null ? "Data N/A" : overdosage,
-          brand_name: brandName == null ? "Data N/A" : brandName,
-          route: route == null ? "Data N/A" : route,
-          pharm_class: pharmClass == null ? "Data N/A" : pharmClass,
-          description: description == null ? "Data N/A" : description,
-          pediatric_use: pediatricuse == null ? "Data N/A" : pediatricuse,
-          labeler_name: labelerName == null ? "Data N/A" : labelerName,
-        });
-      }
+function three(){
+  res.render("index", {
+    drugName: drugName == null ? 'Data N/A': drugName,
+    dosageForm: dosageForm == null ? 'Data N/A': dosageForm,
+    dosage: JSON.parse(body).results[0].dosage_forms_and_strengths == null ? 'Data N/A': JSON.parse(body).results[0].dosage_forms_and_strengths,
+    oD: JSON.parse(body).results[0].overdosage == null ? 'Data N/A': JSON.parse(body).results[0].overdosage,
+    brandName: brandName == null ? 'Data N/A': brandName,
+    route: route == null ? 'Data N/A': route,
+    pharmClass: pharmClass == null ? 'Data N/A': pharmClass,
+    pharm_dynamics: JSON.parse(body).results[0].pharmacodynamics == null ? 'Data N/A': JSON.parse(body).results[0].pharmacodynamics,
+    descr: JSON.parse(body).results[0].description == null ? 'Data N/A': JSON.parse(body).results[0].description,
+    pedo: JSON.parse(body).results[0].pediatric_use == null ? 'Data N/A': JSON.parse(body).results[0].pediatric_use,
+  });
+}
 
       response2.on("end", function () {
         var sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "'";
         con.query(sql, function (err, result) {
-          if (err) throw err;
-          if (result.length == 1) {
-            //if the drug name data exists in DB
-            console.log("Drug Exists in DB");
+          if(err)throw err;
+          if (result.length == 1) { //if the drug name data exists in DB
+            console.log('Drug Exists in DB');
             three();
-          } else {
-            //if drug name doesnt exist in DB
+            console.log('Display Rendered');
+          } else { //if drug name doesnt exist in DB
             //insert
-            console.log("Drug Doesnt Exist in DB");
-            var sql =
-              "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdministrationRoute`, `PharmClass`, `Description`, `PediatricUse`, `DrugInteractions`, `Indication&Use`, `Contraindications`, `InfoForPatients`, `GeriatricUse`, `LabelerName`) VALUES ('" +
-              drugName +
-              "', '" +
-              dosageForm +
-              "', '" +
-              overdosage +
-              "', '" +
-              brandName +
-              "', '" +
-              route +
-              "', '" +
-              pharmClass +
-              "', '" +
-              description +
-              "', '" +
-              pediatricuse +
-              "', '" +
-              drugInteractions +
-              "', '" +
-              indicationanduse +
-              "', '" +
-              contraindications +
-              "', '" +
-              infoforpatients +
-              "', '" +
-              geriatricuse +
-              "', '" +
-              labelerName +
-              "');";
+            console.log('Drug Doesnt Exist in DB');
+            var sql = "INSERT INTO `drugs` (`DrugName`, `dosage_form`, `dosage`, `overDosage`, `brandName`, `administrationRoute`, `pharmClass`, `pharmDynamics`, `description`, `pediatricUse`) VALUES ('" + drugName + "', '" + dosageForm + "', '" + JSON.parse(body).results[0].dosage_forms_and_strengths + "', '" + JSON.parse(body).results[0].overdosage + "', '" + brandName + "', '" + route + "','" + pharmClass + "','" + JSON.parse(body).results[0].pharmacodynamics + "','" + JSON.parse(body).results[0].description + "','" + JSON.parse(body).results[0].pediatric_use + "');"
             con.query(sql, function (err, result) {
-              if (err) throw err;
+              if(err)throw err;
+              console.log('Drug Data Entered into DB');
               three();
+              console.log('Display Rendered');
             });
           }
         });
+
       });
     });
   }
@@ -253,4 +209,4 @@ app.listen(process.env.PORT || 3000, function () {
 
 //------------------------------------------------------------------//
 //CREATE TABLE `users` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),`password` varchar(255));
-//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `DosageForm` TEXT, `OverDosage` TEXT, `BrandName` varchar(255), `AdministrationRoute` TEXT, `PharmClass` TEXT, `Description` TEXT, `PediatricUse` TEXT, `DrugInteractions` TEXT, `Indication&Use` TEXT, `Contraindications` TEXT, `InfoForPatients` TEXT, `GeriatricUse` TEXT, `LabelerName` TEXT, PRIMARY KEY(drug_id));
+//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `dosage_form` TEXT, `dosage` TEXT, `overDosage` TEXT, `brandName` varchar(255), `administrationRoute` TEXT, `pharmClass` TEXT, `pharmDynamics` TEXT, `description` TEXT, `pediatricUse` TEXT, PRIMARY KEY(drug_id));

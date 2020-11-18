@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>G E M D R U G S</title>
-    <a href="https://icons8.com/icon/97574/search"></a>
+
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap&family=Montserrat:wght@300&family=Ubuntu:wght@300&display=swap"
@@ -44,16 +44,12 @@
 
         <nav class="navbar navbar-dark">
           <span class="navbar-brand mb-0 h1">Gem Drugs</span>
-          <ul>
-            <li><a class="anchorA" href="A">Logout</a></li>
-          </ul>
         </nav>
-        <div class="sized-box"></div>
+
         <!-- Title -->
         <div class="row">
           <div class="col-lg-6">
             <h1>A Pharmacopoeia You Can Trust</h1>
-            <h2>Fast, Clean & Concise</h2>
           </div>
         </div>
       </div>
@@ -64,14 +60,15 @@
     <!-- Search Bar -->
     <section id="search">
       <div class="search-box">
+        <!-- remove return false later cause it prevents reload onsubmit="return false"-->
         <form class="myForm" action="/display.html" method="POST">
           <label class="label" for="drug">Enter the Drug Name</label><br />
           <input type="text" id="drug" name="drug_name" /><br />
-          <button class="search-btn" type="submit"><img src="https://img.icons8.com/cotton/64/000000/search--v2.png"/></button>
+          <button class="search-btn" type="submit">Search</button>
         </form>
       </div>
     </section>
-    <div class="sized-box"></div>
+
     <!-- Footer -->
 
     <footer id="footer">
