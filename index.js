@@ -16,7 +16,7 @@ app.use(express.static(__dirname));
 
 //------------------------------------------------------------------//
 //use createPool instead of createConnection cause pool automatically opens and closes the connection
-var con = mysql.createPool({
+let con = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "crysis123",
@@ -106,10 +106,10 @@ app.post("/home.html", function (req, res) {
 //posts the display html i.e. index.ejs using display.html as a template
 //all the code written inside is to wrok out the data and pass it to display.html(index.ejs)
 app.post("/display.html", function (req, res) {
-  var query = req.body.drug_name;
-  var type = "brand_name";
+  let query = req.body.drug_name;
+  let type = "brand_name";
   const apiKey = "S3DeKRRy8PtgRxfFGl5QbUlH0lxcAZ7QR2k8R9wH&";
-  var urlLabel =
+  let urlLabel =
     "https://api.fda.gov/drug/label.json?api_key=" +
     apiKey +
     "&search=openfda." +
@@ -117,7 +117,7 @@ app.post("/display.html", function (req, res) {
     ":" +
     query +
     "&limit=2";
-  var urlNdc =
+  let urlNdc =
     "https://api.fda.gov/drug/ndc.json?api_key=" +
     apiKey +
     "&search=" +
@@ -132,6 +132,7 @@ app.post("/display.html", function (req, res) {
   let route;
   let pharmClass;
   let labelerName;
+  let productType;
 
   function one() {
     https.get(urlNdc, function (response1) {
@@ -144,6 +145,7 @@ app.post("/display.html", function (req, res) {
         route = JSON.parse(data).results[0]['route'];
         pharmClass = JSON.parse(data).results[0]['pharm_class'];
         labelerName = JSON.parse(data).results[0]["labeler_name"];
+        productType = JSON.parse(data).results[0]["product_type"];
       });
     });
   }
@@ -156,34 +158,36 @@ app.post("/display.html", function (req, res) {
         body += data;
       });
 
-function three(){
-  res.render("index", {
-    drugName: drugName == null ? 'Data N/A': drugName,
-    dosageForm: dosageForm == null ? 'Data N/A': dosageForm,
-    OverDosage: JSON.parse(body).results[0]['overdosage'] == null ? 'Data N/A': JSON.parse(body).results[0]['overdosage'],
-    brandName: brandName == null ? 'Data N/A': brandName,
-    AdminRoute: route == null ? 'Data N/A': route,
-    PharmacologicalClass: pharmClass == null ? 'Data N/A': pharmClass,
-    LabelerName: labelerName == null ? 'Data N/A': labelerName,
-    descr: JSON.parse(body).results[0].description == null ? 'Data N/A': JSON.parse(body).results[0].description,
-    pedo: JSON.parse(body).results[0].pediatric_use == null ? 'Data N/A': JSON.parse(body).results[0].pediatric_use,
-  });
-}
+      function three() {
+        res.render("index", {
+          DrugName: drugName == null ? 'Data N/A' : drugName,
+          DosageForm: dosageForm == null ? 'Data N/A' : dosageForm,
+          OverDosage: JSON.parse(body).results[0]['overdosage'] == null ? 'Data N/A' : JSON.parse(body).results[0]['overdosage'],
+          BrandName: brandName == null ? 'Data N/A' : brandName,
+          AdminRoute: route == null ? 'Data N/A' : route,
+          PharmacologicalClass: pharmClass == null ? 'Data N/A' : pharmClass,
+          LabelerName: labelerName == null ? 'Data N/A' : labelerName,
+          Description: JSON.parse(body).results[0]['description'] == null ? 'Data N/A' : JSON.parse(body).results[0]['description'],
+          ProductType: productType == null ? 'Data N/A' : productType,
+          PediatricUse: JSON.parse(body).results[0]['pediatric_use'] == null ? 'Data N/A' : JSON.parse(body).results[0]['pediatric_use'],
+        });
+      }
 
       response2.on("end", function () {
         let sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "'";
         con.query(sql, function (err, result) {
-          if(err)throw err;
-          if (result.length == 1) { //if the drug name data exists in DB
+          if (err) throw err;
+          if (result.length === 1) { //if the drug name data exists in DB
             console.log('Drug Exists in DB');
             three();
             console.log('Display Rendered');
           } else { //if drug name doesnt exist in DB
             //insert
             console.log('Drug Doesnt Exist in DB');
-            var sql = "INSERT INTO `drugs` (`DrugName`, `dosage_form`, `dosage`, `overDosage`, `brandName`, `administrationRoute`, `pharmClass`, `pharmDynamics`, `description`, `pediatricUse`) VALUES ('" + drugName + "', '" + dosageForm + "', '" + JSON.parse(body).results[0].dosage_forms_and_strengths + "', '" + JSON.parse(body).results[0].overdosage + "', '" + brandName + "', '" + route + "','" + pharmClass + "','" + JSON.parse(body).results[0].pharmacodynamics + "','" + JSON.parse(body).results[0].description + "','" + JSON.parse(body).results[0].pediatric_use + "');"
+            let sql = "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdminRoute`, `PharmacologicalClass`, `LabelerName`, `Description`, `ProductType`, `PediatricUse`) VALUES ('" + drugName + "', '" + dosageForm + "', '" + JSON.parse(body).results[0]['overdosage'] + "', '" + brandName + "', '" + route + "', '" + pharmClass + "','" + labelerName + "','" + JSON.parse(body).results[0]['description'] + "','" + productType + "','" + JSON.parse(body).results[0]['pediatric_use'] + "');";
+
             con.query(sql, function (err, result) {
-              if(err)throw err;
+              if (err) throw err;
               console.log('Drug Data Entered into DB');
               three();
               console.log('Display Rendered');
@@ -195,7 +199,7 @@ function three(){
     });
   }
 
-  //to make sure the functions are called orderwise
+  //to make sure the functions are called orderly
   one();
   two();
 });
@@ -208,4 +212,5 @@ app.listen(process.env.PORT || 3000, function () {
 
 //------------------------------------------------------------------//
 //CREATE TABLE `users` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),`password` varchar(255));
-//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `dosage_form` TEXT, `dosage` TEXT, `overDosage` TEXT, `brandName` varchar(255), `administrationRoute` TEXT, `pharmClass` TEXT, `pharmDynamics` TEXT, `description` TEXT, `pediatricUse` TEXT, PRIMARY KEY(drug_id));
+//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `DosageForm` TEXT, `OverDosage` TEXT, `BrandName` TEXT, `AdminRoute` varchar(255), `PharmacologicalClass` TEXT, `LabelerName` TEXT, `Description` TEXT, `ProductType` TEXT, `PediatricUse` TEXT, PRIMARY KEY(drug_id));
+

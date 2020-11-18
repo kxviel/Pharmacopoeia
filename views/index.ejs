@@ -14,7 +14,7 @@
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%=drugName%></title>
+    <title>Results</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap&family=Montserrat:wght@300&family=Ubuntu:wght@300&display=swap"
       rel="stylesheet"
@@ -41,10 +41,10 @@
     <section id="body">
       <div class="container-fluid">
         <!-- Nav Bar -->
-
+        di
         <nav class="navbar navbar-dark">
           <span id="a" class="navbar-brand mb-0 h1">Gem Drugs</span>
-          <span id="b" class="navbar-brand mb-0 h1"><%=brandName%></span>
+          <span id="b" class="navbar-brand mb-0 h1"><%=BrandName%></span>
           <span id="c" class="navbar-brand mb-0 h1"><a href="#">History</a></span>
           <span id="c" class="navbar-brand mb-0 h1"><a href="/home.html">Back</a></span>
         </nav>
@@ -53,8 +53,9 @@
       <section id="main-section">
         <article>
           <div>
+
             <h3>Generic Name</h3>
-            <p><%=drugName%></p>
+            <p><%=DrugName%></p>
           </div>
           <hr />
           <div>
@@ -63,33 +64,37 @@
           </div>
           <hr />
           <div>
-            <h3>Description</h3>
-            <p><%=descr%></p>
-          </div>
-          <hr />
-          <div>
-            <h3>Pediatric Use</h3>
-            <p><%=pedo%></p>
-          </div>
-          <hr />
-          <div>
-            <h3>Dosage Details</h3>
-            <h5>- Dosage Form:</h5>
-            <p><%=dosageForm%></p>
-            <h5>- Over Dosage:</h5>
-            <p><%=OverDosage%></p>
-          </div>
-          <hr />
-          <div>
-            <h3>Administration Route</h3>
-            <p><%=AdminRoute%></p>
+            <h3>Product Type:</h3>
+            <p><%=ProductType%></p>
           </div>
           <hr />
           <div>
             <h3>Pharmacologic Class:</h3>
             <p><%=PharmacologicalClass%></p>
           </div>
-
+                    <hr />
+          <div>
+            <h3>Administration Route</h3>
+            <p><%=AdminRoute%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Description</h3>
+            <p><%=Description%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Pediatric Use</h3>
+            <p><%=PediatricUse%></p>
+          </div>
+          <hr />
+          <div>
+            <h3>Dosage Details</h3>
+            <h5>- Dosage Form:</h5>
+            <p><%=DosageForm%></p>
+            <h5>- Over Dosage:</h5>
+            <p><%=OverDosage%></p>
+          </div>
         </article>
       </section>
       <div class="sized-box"></div>
