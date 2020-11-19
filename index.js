@@ -170,6 +170,11 @@ app.post("/display.html", function (req, res) {
           Description: JSON.parse(body).results[0]['description'] == null ? 'Data N/A' : JSON.parse(body).results[0]['description'],
           ProductType: productType == null ? 'Data N/A' : productType,
           PediatricUse: JSON.parse(body).results[0]['pediatric_use'] == null ? 'Data N/A' : JSON.parse(body).results[0]['pediatric_use'],
+          DrugInteractions: JSON.parse(body).results[0]["drug_interactions"] == null ? 'Data N/A' : JSON.parse(body).results[0]["drug_interactions"],
+          Contraindications: JSON.parse(body).results[0]["contraindications"] == null ? 'Data N/A' : JSON.parse(body).results[0]["contraindications"],
+          InfoForPatients: JSON.parse(body).results[0]["information_for_patients"] == null ? 'Data N/A' : JSON.parse(body).results[0]["information_for_patients"],
+          GeriatricUse: JSON.parse(body).results[0]["geriatric_use"] == null ? 'Data N/A' : JSON.parse(body).results[0]["geriatric_use"],
+
         });
       }
 
@@ -184,7 +189,7 @@ app.post("/display.html", function (req, res) {
           } else { //if drug name doesnt exist in DB
             //insert
             console.log('Drug Doesnt Exist in DB');
-            let sql = "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdminRoute`, `PharmacologicalClass`, `LabelerName`, `Description`, `ProductType`, `PediatricUse`) VALUES ('" + drugName + "', '" + dosageForm + "', '" + JSON.parse(body).results[0]['overdosage'] + "', '" + brandName + "', '" + route + "', '" + pharmClass + "','" + labelerName + "','" + JSON.parse(body).results[0]['description'] + "','" + productType + "','" + JSON.parse(body).results[0]['pediatric_use'] + "');";
+            let sql = "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdminRoute`, `PharmacologicalClass`, `LabelerName`, `Description`, `ProductType`, `PediatricUse`, `DrugInteractions`, `Contraindications`, `InfoForPatients`, `GeriatricUse`) VALUES ('" + drugName + "', '" + dosageForm + "', '" + JSON.parse(body).results[0]['overdosage'] + "', '" + brandName + "', '" + route + "', '" + pharmClass + "','" + labelerName + "','" + JSON.parse(body).results[0]['description'] + "','" + productType + "','" + JSON.parse(body).results[0]['pediatric_use'] + "','" + JSON.parse(body).results[0]["drug_interactions"] + "','" + JSON.parse(body).results[0]["contraindications"] + "','" + JSON.parse(body).results[0]["information_for_patients"] + "','" + JSON.parse(body).results[0]["geriatric_use"] + "');";
 
             con.query(sql, function (err, result) {
               if (err) throw err;
@@ -212,5 +217,4 @@ app.listen(process.env.PORT || 3000, function () {
 
 //------------------------------------------------------------------//
 //CREATE TABLE `users` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),`password` varchar(255));
-//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `DosageForm` TEXT, `OverDosage` TEXT, `BrandName` TEXT, `AdminRoute` varchar(255), `PharmacologicalClass` TEXT, `LabelerName` TEXT, `Description` TEXT, `ProductType` TEXT, `PediatricUse` TEXT, PRIMARY KEY(drug_id));
-
+//CREATE TABLE `drugs` (drug_id int NOT NULL AUTO_INCREMENT, `DrugName` varchar(255) NOT NULL, `DosageForm` TEXT, `OverDosage` TEXT, `BrandName` TEXT, `AdminRoute` varchar(255), `PharmacologicalClass` TEXT, `LabelerName` TEXT, `Description` TEXT, `ProductType` TEXT, `PediatricUse` TEXT, `DrugInteractions` TEXT, `Contraindications` TEXT, `InfoForPatients` TEXT, `GeriatricUse` TEXT, PRIMARY KEY(drug_id));

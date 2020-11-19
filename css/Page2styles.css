@@ -18,6 +18,11 @@ hr.hr-1 {
   background: #999;
 }
 
+.card-body{
+background-color: #6a93cb;
+background-image: linear-gradient(315deg, #6a93cb 0%, #a4bfef 74%);
+}
+
 
 /* ------------------|| Font Styles */
 
@@ -61,4 +66,12 @@ a:hover {
 a:active {
   text-decoration: none;
   color: #fff;
+}
+
+.card-title{
+  color: black;
+}
+
+.card-text{
+  color: black;
 }
