@@ -37,7 +37,7 @@ app.post("/home.html", function (req, res) {
   //using these two above variables as my road dividers
   //if signinname == undefined it means user logged in
   //if loginpass == undefined it means user signed up
-  if (req.body.signinname == undefined) {
+  if (req.body.signinname === undefined) {
     console.log("User Logged In ");
     var usernameL = req.body.loginusername;
     var passwordL = req.body.loginpass;
@@ -46,7 +46,7 @@ app.post("/home.html", function (req, res) {
     con.query(sqlu, function (err, result) {
       if (err) throw err;
       //if username exists in DB
-      if (result.length == 1) {
+      if (result.length === 1) {
         //if user entered correct password
         console.log("User Exists in DB");
         con.query(sqlp, function (err, result) {
@@ -78,7 +78,7 @@ app.post("/home.html", function (req, res) {
     var sql = "SELECT * FROM users WHERE email ='" + email + "'";
     con.query(sql, function (err, result) {
       if (err) throw err;
-      c
+
       if (result.length == 0) {
         var insertSQL =
           "INSERT INTO `users` (`name`, `email`, `username`, `password`) VALUES ('" +
@@ -104,7 +104,7 @@ app.post("/home.html", function (req, res) {
 
 //------------------------------------------------------------------//
 //posts the display html i.e. index.ejs using display.html as a template
-//all the code written inside is to wrok out the data and pass it to display.html(index.ejs)
+//all the code written inside is to work out the data and pass it to display.html(index.ejs)
 app.post("/display.html", function (req, res) {
   let query = req.body.drug_name;
   let type = "brand_name";
