@@ -1,8 +1,8 @@
 const express = require("express");
+const app = express();
 const https = require("https");
 const bodyP = require("body-parser");
 const mysql = require("mysql");
-const app = express();
 
 //------------------------------------------------------------------//
 
@@ -18,8 +18,9 @@ app.use(
 app.use(express.static(__dirname));
 
 //------------------------------------------------------------------//
+
 //Connect To MySQL
-//use createPool instead of createConnection cause pool automatically opens and closes the connection
+//Use createPool to auto close MySQL Connections
 let con = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -28,19 +29,25 @@ let con = mysql.createPool({
 });
 
 //------------------------------------------------------------------//
-//gets the requests frm '/' i.e. login screen
-app.get("/", (req, res) => {
+
+//'/' is our Home Screen i.e. localhost:777
+app.get("/", (req, res) =>{
   res.sendFile(__dirname + "/views/LogIn.html");
 });
 
+//All Post Requests to '/map'
+app.get("/map", (req, res) => {
+  let hey = "my abab";
+  res.render("Map", {
+    text: hey,
+  });
+});
+
 //------------------------------------------------------------------//
-//posts the requested content to home or wherever u want it but in simple ... to home.html
-//so all the requests i.e. filling forms, radio buttons,etc get posted to the home.html
-//aka, i can use /login.html or /signup.html values here for further coding
+
+//All Post Requests to '/home'
 app.post("/home", (req, res) => {
-  //using these two above variables as my road dividers
-  //if signinname == undefined it means user logged in
-  //if loginpass == undefined it means user signed up
+  //signinname == undefined => user logged in && loginpass == undefined => user signed up
   if (req.body.signinname === undefined) {
     console.log("User Logged In ");
     var usernameL = req.body.loginusername;
@@ -75,8 +82,7 @@ app.post("/home", (req, res) => {
     var username = req.body.signinusername;
     var password = req.body.signinpassword;
 
-    //sql query to check if there is a user with the same email in the DB
-    //If there is, then send err, else sign in successful
+    //Query to if User Email Exists to Avoid Duplicate SignUps
     var sql = "SELECT * FROM users WHERE email ='" + email + "'";
     con.query(sql, (err, result) => {
       if (err) throw err;
@@ -105,8 +111,8 @@ app.post("/home", (req, res) => {
 });
 
 //------------------------------------------------------------------//
-//posts the display html i.e. index.ejs using display.html as a template
-//all the code written inside is to work out the data and pass it to display.html(index.ejs)
+
+//All Post Requests to '/display'
 app.post("/display", (req, res) => {
   let query = req.body.drug_name;
   let type = "brand_name";
@@ -136,6 +142,7 @@ app.post("/display", (req, res) => {
   let labelerName;
   let productType;
 
+  //one() => Stores Variables from NDC.json
   function one() {
     https.get(urlNdc, (response1) => {
       console.log("HTTP Call 1 Done");
@@ -152,6 +159,7 @@ app.post("/display", (req, res) => {
     });
   }
 
+  //two() => Stores Variables from Label.json & Renders to Index.ejs
   function two() {
     https.get(urlLabel, (response2) => {
       console.log("HTTP Call 2 Done");
@@ -160,6 +168,7 @@ app.post("/display", (req, res) => {
         body += data;
       });
 
+      //three() => Renders to Index.ejs
       function three() {
         res.render("Index", {
           DrugName: drugName == null ? "Data N/A" : drugName,
@@ -200,6 +209,7 @@ app.post("/display", (req, res) => {
         });
       }
 
+      //Avoid Duplicate Entries of Drug to Table
       response2.on("end", () => {
         let sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "'";
         con.query(sql, (err, result) => {
@@ -256,22 +266,16 @@ app.post("/display", (req, res) => {
     });
   }
 
-  //to make sure the functions are called orderly
+  //Function Calls in Order
   one();
   two();
 });
 
-app.get("/map", (req, res) => {
-  let hey = "my abab";
-  res.render("Map", {
-    text: hey,
-  });
-});
-
 //------------------------------------------------------------------//
 
+//Server Launch at Port 777
 app.listen(process.env.PORT || 777, () => {
-  console.log("Server is Running");
+  console.log("Server is Running at localhost:777");
 });
 
 //------------------------------------------------------------------//
