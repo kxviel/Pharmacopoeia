@@ -10,4 +10,4 @@
 - Bootstrap <br>
 
 <h5>Screenshots:</h5><br>
-<img src"https://raw.githubusercontent.com/kevkanae/Pharmacopoeia/master/Extra/1.png">
+![alt text](https://raw.githubusercontent.com/kevkanae/Pharmacopoeia/master/Extra/1.png)
