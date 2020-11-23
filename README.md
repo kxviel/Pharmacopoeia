@@ -8,6 +8,3 @@
 - Express JS <br>
 - Materialize CSS <br>
 - Bootstrap <br>
-
-<h5>Screenshots:</h5><br>
-![alt text](https://raw.githubusercontent.com/kevkanae/Pharmacopoeia/master/Extra/1.png)
