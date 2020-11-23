@@ -4,8 +4,31 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body">
 Maps EJS
 <p><%=text%></p>
+
+<input type="submit" value="Find Me" onclick="getLocation()">
+<p id="demo"></p>
+<script>
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {
+  let lat = position.coords.latitude;
+  let long = position.coords.longitude;
+  x.innerHTML = "Latitude: " + lat + 
+  "<br>Longitude: " + long;
+}
+</script>
+
+<p>Lat: <%=lat%> </p>
+<p>Long: <%=long%> </p>
+
 </body>
 </html>

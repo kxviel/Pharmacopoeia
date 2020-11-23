@@ -1,0 +1,25 @@
+/* Fonts */
+.Ghead {
+  font-family: 'Sacramento', cursive;
+  font-size: xx-large;
+}
+
+.blahBlah {
+  font-size: xx-large;
+}
+
+/* NavBar */
+.nav-wrapper {
+  background-color: #ffe2e2;
+}
+
+/* Section */
+.search {
+  text-align: center;
+  justify-content: center;
+}
+
+.jumbotron-fluid {
+  background-color: #f6f6f6;
+}
+

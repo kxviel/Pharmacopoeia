@@ -3,6 +3,8 @@ const app = express();
 const https = require("https");
 const bodyP = require("body-parser");
 const mysql = require("mysql");
+const geo = require("node-geocoder");
+const { send } = require("process");
 
 //------------------------------------------------------------------//
 
@@ -31,15 +33,86 @@ let con = mysql.createPool({
 //------------------------------------------------------------------//
 
 //'/' is our Home Screen i.e. localhost:777
-app.get("/", (req, res) =>{
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/LogIn.html");
 });
 
-//All Post Requests to '/map'
+//All Get Requests to '/map'
 app.get("/map", (req, res) => {
-  let hey = "my abab";
+
+//url Variables
+const clientID = "BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN";
+const clientSecret = "DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ";
+const query = "pharmacy";
+const date = "20201120";
+
+  //Get Lat and Long from City Name Entered
+  let latitude;
+  let longitude;
+  let myBody;
+  let options = {
+    provider: "openstreetmap",
+  };
+  let geoCoder = geo(options);
+
+  async function getLatLang(){
+  myBody = await geoCoder.geocode('Manipal');
+  }
+
+  function getMapURL(){
+    latitude = myBody[0]['latitude'];
+    longitude = myBody[0]['longitude'];
+    mapURL =
+    "https://api.foursquare.com/v2/venues/search?ll=" +
+    latitude +
+    "," +
+    longitude +
+    "&query=" +
+    query +
+    "&radius=10000&client_id=" +
+    clientID +
+    "&client_secret=" +
+    clientSecret +
+    "&v=" +
+    date;
+
+    https.get(mapURL, function (res) {
+      var json = '';
+      res.on('data', function (chunk) {
+          json += chunk;
+      });
+      res.on('end', function () {
+          if (res.statusCode === 200) {
+              try {
+                var i;
+                let pharmacyLocation = '';
+                for(i in JSON.parse(json).response.venues){
+                  kevin = JSON.parse(json).response.venues[i].name;
+                  console.log(kevin);
+                }
+                  console.log(data);
+              } catch (e) {
+                  console.log('Error parsing JSON!');
+              }
+          } else {
+              console.log('Status:', res.statusCode);
+          }
+      });
+  }).on('error', function (err) {
+        console.log('Error:', err);
+  });
+
+  }
+
+  //Resolve Async Function 
+  getLatLang();
+  setTimeout(getMapURL,3000)
+  
+
   res.render("Map", {
-    text: hey,
+    text: query,
+    lat: latitude,
+    long: longitude,
   });
 });
 
