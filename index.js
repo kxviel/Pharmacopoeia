@@ -13,7 +13,7 @@ app.set("view engine", "ejs");
 //For Parsing Response Body
 app.use(
   bodyP.urlencoded({
-    extended: false,
+    extended: true,
   })
 );
 //For Initializing all Project Files in DIR
@@ -38,13 +38,14 @@ app.get("/", (req, res) => {
 });
 
 //All Get Requests to '/map'
-app.get("/map", (req, res) => {
+app.get("/map", (req, resmain) => {
+  let myLocation = req.query.mylocation;
 
-//url Variables
-const clientID = "BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN";
-const clientSecret = "DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ";
-const query = "pharmacy";
-const date = "20201120";
+  //url Variables
+  const clientID = "BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN";
+  const clientSecret = "DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ";
+  const query = "pharmacy";
+  const date = "20201120";
 
   //Get Lat and Long from City Name Entered
   let latitude;
@@ -55,65 +56,92 @@ const date = "20201120";
   };
   let geoCoder = geo(options);
 
-  async function getLatLang(){
-  myBody = await geoCoder.geocode('Manipal');
+  async function getLatLang() {
+    myBody = await geoCoder.geocode(myLocation);
   }
 
-  function getMapURL(){
-    latitude = myBody[0]['latitude'];
-    longitude = myBody[0]['longitude'];
+  function getMapURL() {
+    latitude = myBody[0]["latitude"];
+    longitude = myBody[0]["longitude"];
     mapURL =
-    "https://api.foursquare.com/v2/venues/search?ll=" +
-    latitude +
-    "," +
-    longitude +
-    "&query=" +
-    query +
-    "&radius=10000&client_id=" +
-    clientID +
-    "&client_secret=" +
-    clientSecret +
-    "&v=" +
-    date;
-
-    https.get(mapURL, function (res) {
-      var json = '';
-      res.on('data', function (chunk) {
+      "https://api.foursquare.com/v2/venues/search?ll=" +
+      latitude +
+      "," +
+      longitude +
+      "&query=" +
+      query +
+      "&radius=10000&client_id=" +
+      clientID +
+      "&client_secret=" +
+      clientSecret +
+      "&v=" +
+      date;
+    var location1, meters1, city1;
+    var location2, meters2, city2;
+    var location3, meters3, city3;
+    var location4, meters4, city4;
+    https
+      .get(mapURL, function (res) {
+        var json = "";
+        res.on("data", function (chunk) {
           json += chunk;
-      });
-      res.on('end', function () {
+        });
+        res.on("end", function () {
           if (res.statusCode === 200) {
-              try {
-                var i;
-                let pharmacyLocation = '';
-                for(i in JSON.parse(json).response.venues){
-                  kevin = JSON.parse(json).response.venues[i].name;
-                  console.log(kevin);
-                }
-                  console.log(data);
-              } catch (e) {
-                  console.log('Error parsing JSON!');
+            try {
+              var i;
+              var a = [],
+                b = [],
+                c = [];
+              for (i = 0; i <= 3; i++) {
+                a[i] = JSON.parse(json).response.venues[i].name;
+                b[i] = JSON.parse(json).response.venues[i].location.distance;
+                c[i] = JSON.parse(json).response.venues[i].location.city;
               }
-          } else {
-              console.log('Status:', res.statusCode);
-          }
-      });
-  }).on('error', function (err) {
-        console.log('Error:', err);
-  });
+              location1 = a[0];
+              location2 = a[1];
+              location3 = a[2];
+              location4 = a[3];
+              meters1 = b[0];
+              meters2 = b[1];
+              meters3 = b[2];
+              meters4 = b[3];
+              city1 = c[0];
+              city2 = c[1];
+              city3 = c[2];
+              city4 = c[3];
 
+              resmain.render("Map", {
+                Heading: "Pharmacies Near Me",
+                loc1: location1 == null ? "No Shops Nearby" : location1,
+                loc2: location2 == null ? "No Shops Nearby" : location2,
+                loc3: location3 == null ? "No Shops Nearby" : location3,
+                loc4: location4 == null ? "No Shops Nearby" : location4,
+                met1: meters1 == null ? "N/A" : meters1,
+                met2: meters2 == null ? "N/A" : meters2,
+                met3: meters3 == null ? "N/A" : meters3,
+                met4: meters4 == null ? "N/A" : meters4,
+                cit1: city1 == null ? "N/A" : city1,
+                cit2: city2 == null ? "N/A" : city2,
+                cit3: city3 == null ? "N/A" : city3,
+                cit4: city4 == null ? "N/A" : city4,
+              });
+            } catch (e) {
+              console.log(e, "Error parsing JSON!");
+            }
+          } else {
+            console.log("Status:", res.statusCode);
+          }
+        });
+      })
+      .on("error", function (err) {
+        console.log("Error:", err);
+      });
   }
 
-  //Resolve Async Function 
+  //Resolve Async Function
   getLatLang();
-  setTimeout(getMapURL,3000)
-  
-
-  res.render("Map", {
-    text: query,
-    lat: latitude,
-    long: longitude,
-  });
+  setTimeout(getMapURL, 3000);
 });
 
 //------------------------------------------------------------------//
