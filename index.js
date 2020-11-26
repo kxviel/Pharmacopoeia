@@ -287,6 +287,8 @@ app.get("/map", (req, resmain) => {
     c = [],
     d = [],
     e = [];
+  
+  //Geocode
   let options = {
     provider: "openstreetmap",
   };
@@ -317,6 +319,7 @@ app.get("/map", (req, resmain) => {
     var location3, meters3, city3;
     var location4, meters4, city4;
     var location5, meters5, city5;
+    
     //Random Phone Number
     function phoneNumber() {
       let randomNumber = Math.floor("9" + Math.random() * 900000000);
@@ -326,7 +329,7 @@ app.get("/map", (req, resmain) => {
 
     //Availability
     function availability() {
-      var yesNo = ["✔", "❌"];
+      var yesNo = ["Yes", "No"];
       var rand = Math.floor(Math.random() * yesNo.length);
       let availability = yesNo[rand];
       return availability;
@@ -355,13 +358,8 @@ app.get("/map", (req, resmain) => {
               //Insert Data Into Table
               for (i = 0; i <= 4; i++) {
                 let sql =
-                  "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`) VALUES ('" +
-                  a[i] +
-                  "','" +
-                  myLocation +
-                  "','" +
-                  b[i] +
-                  "');";
+                  "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" +
+                  a[i] + "','" +myLocation +"','" +b[i]+"','" +d[i]+"','" +e[i]+"','" +c[i]+"');";
                 con.query(sql, (err, result) => {
                   if (err) throw err;
                 });
