@@ -165,41 +165,26 @@ app.post("/display", (req, res) => {
       //three() => Renders to Index.ejs
       function three() {
         res.render("Index", {
-          DrugName: drugName == null ? "Data N/A" : drugName,
-          DosageForm: dosageForm == null ? "Data N/A" : dosageForm,
-          OverDosage:
-            JSON.parse(body).results[0]["overdosage"] == null
-              ? "Data N/A"
-              : JSON.parse(body).results[0]["overdosage"],
-          BrandName: brandName == null ? "Data N/A" : brandName,
-          AdminRoute: route == null ? "Data N/A" : route,
-          PharmacologicalClass: pharmClass == null ? "Data N/A" : pharmClass,
-          LabelerName: labelerName == null ? "Data N/A" : labelerName,
-          Description:
-            JSON.parse(body).results[0]["description"] == null
-              ? "Data N/A"
-              : JSON.parse(body).results[0]["description"],
-          ProductType: productType == null ? "Data N/A" : productType,
+          DrugName: drugName ?? "Data N/A",
+          DosageForm: dosageForm ?? "Data N/A",
+          OverDosage: JSON.parse(body).results[0]["overdosage"] ?? "Data N/A",
+          BrandName: brandName ?? "Data N/A",
+          AdminRoute: route ?? "Data N/A",
+          PharmacologicalClass: pharmClass ?? "Data N/A",
+          LabelerName: labelerName ?? "Data N/A",
+          Description: JSON.parse(body).results[0]["description"] ?? "Data N/A",
+          ProductType: productType ?? "Data N/A",
           PediatricUse:
-            JSON.parse(body).results[0]["pediatric_use"] == null
-              ? "Data N/A"
-              : JSON.parse(body).results[0]["pediatric_use"],
+            JSON.parse(body).results[0]["pediatric_use"] ?? "Data N/A",
           DrugInteractions:
-            JSON.parse(body).results[0]["drug_interactions"] == null
-              ? "Data N/A"
-              : JSON.parse(body).results[0]["drug_interactions"],
+            JSON.parse(body).results[0]["drug_interactions"] ?? "Data N/A",
           Contraindications:
-            JSON.parse(body).results[0]["contraindications"] == null
-              ? "Data N/A"
-              : JSON.parse(body).results[0]["contraindications"],
+            JSON.parse(body).results[0]["contraindications"] ?? "Data N/A",
           InfoForPatients:
-            JSON.parse(body).results[0]["information_for_patients"] == null
-              ? "Data N/A"
-              : JSON.parse(body).results[0]["information_for_patients"],
+            JSON.parse(body).results[0]["information_for_patients"] ??
+            "Data N/A",
           GeriatricUse:
-            JSON.parse(body).results[0]["geriatric_use"] == null
-              ? "Data N/A"
-              : JSON.parse(body).results[0]["geriatric_use"],
+            JSON.parse(body).results[0]["geriatric_use"] ?? "Data N/A",
         });
       }
 
@@ -287,7 +272,7 @@ app.get("/map", (req, resmain) => {
     c = [],
     d = [],
     e = [];
-  
+
   //Geocode
   let options = {
     provider: "openstreetmap",
@@ -319,7 +304,7 @@ app.get("/map", (req, resmain) => {
     var location3, meters3, city3;
     var location4, meters4, city4;
     var location5, meters5, city5;
-    
+
     //Random Phone Number
     function phoneNumber() {
       let randomNumber = Math.floor("9" + Math.random() * 900000000);
@@ -359,7 +344,18 @@ app.get("/map", (req, resmain) => {
               for (i = 0; i <= 4; i++) {
                 let sql =
                   "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" +
-                  a[i] + "','" +myLocation +"','" +b[i]+"','" +d[i]+"','" +e[i]+"','" +c[i]+"');";
+                  a[i] +
+                  "','" +
+                  myLocation +
+                  "','" +
+                  b[i] +
+                  "','" +
+                  d[i] +
+                  "','" +
+                  e[i] +
+                  "','" +
+                  c[i] +
+                  "');";
                 con.query(sql, (err, result) => {
                   if (err) throw err;
                 });
