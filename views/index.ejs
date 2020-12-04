@@ -1,140 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <link
-            href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&family=Sacramento&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&family=Sacramento&display=swap"
+      rel="stylesheet"
     />
 
     <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            crossorigin="anonymous"
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
     />
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Results</title>
     <link
-            href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap&family=Montserrat:wght@300&family=Ubuntu:wght@300&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap&family=Montserrat:wght@300&family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/Index.css"/>
+    <link rel="stylesheet" href="../css/Index.css" />
     <!-- Bootstrap Script -->
     <script
-            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
     ></script>
     <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
     ></script>
     <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
     ></script>
-</head>
-<body>
-<section id="body">
-    <div class="container-fluid">
+  </head>
+  <body>
+    <section id="body">
+      <div class="container-fluid">
         <!-- Nav Bar -->
         <nav class="navbar navbar-dark">
-            <span id="a" class="navbar-brand mb-0 h1"><a href="/views/Home.html">Gem Drugs</a></span>
-            <span id="b" class="navbar-brand mb-0 h1"><%= BrandName %></span>
-            <form class="form-inline" action="/map" >
-                <input name="mylocation" class="form-control mr-sm-2" type="search" placeholder="Your Location" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Find Stores Near Me</button>
-              </form>
+          <span id="a" class="navbar-brand mb-0 h1"
+            ><a href="../views/Home.html">Gem Drugs</a></span
+          >
+          <span id="b" class="navbar-brand mb-0 h1"><%= BrandName %></span>
+          <form class="form-inline" action="/map">
+            <input
+              name="mylocation"
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Your Location"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Find Stores Near Me
+            </button>
+          </form>
         </nav>
-    </div>
-    <div class="sized-box"></div>
-    <section id="main-section">
+      </div>
+      <div class="sized-box"></div>
+      <section id="main-section">
         <article>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Generic Name</h5>
-                    <p class="card-text"><%= DrugName %></p>
-                </div>
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Generic Name</h5>
+              <p class="card-text"><%= DrugName %></p>
             </div>
-            <hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Labeler Name</h5>
-                    <p class="card-text"><%=LabelerName%></p>
-                </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Labeler Name</h5>
+              <p class="card-text"><%=LabelerName%></p>
             </div>
-            <hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Product Type</h5>
-                    <p class="card-text"><%=ProductType%></p>
-                </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Product Type</h5>
+              <p class="card-text"><%=ProductType%></p>
             </div>
-            <hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Pharmacologic Class</h5>
-                    <p class="card-text"><%=PharmacologicalClass%></p>
-                </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Pharmacologic Class</h5>
+              <p class="card-text"><%=PharmacologicalClass%></p>
             </div>
-            <hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Administration Route</h5>
-                    <p class="card-text"><%=AdminRoute%></p>
-                </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Administration Route</h5>
+              <p class="card-text"><%=AdminRoute%></p>
             </div>
-            <hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Description</h5>
-                    <p class="card-text"><%=Description%></p>
-                </div>
-            </div><hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Pediatric Use</h5>
-                    <p class="card-text"><%=PediatricUse%></p>
-                </div>
-            </div><hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Geriatric Use</h5>
-                    <p class="card-text"><%=GeriatricUse%></p>
-                </div>
-            </div><hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Drug Interactions</h5>
-                    <p class="card-text"><%=DrugInteractions%></p>
-                </div>
-            </div><hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Contraindications</h5>
-                    <p class="card-text"><%=Contraindications%></p>
-                </div>
-            </div><hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Info For Patients</h5>
-                    <p class="card-text"><%=InfoForPatients%></p>
-                </div>
-            </div><hr/>
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Dosage Details</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">- Dosage Form</h6>
-                    <p class="card-text"><%=DosageForm%></p>
-                    <h6 class="card-subtitle mb-2 text-muted">- Over Dosage</h6>
-                    <p class="card-text"><%=OverDosage%></p>
-                </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Description</h5>
+              <p class="card-text"><%=Description%></p>
             </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Pediatric Use</h5>
+              <p class="card-text"><%=PediatricUse%></p>
+            </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Geriatric Use</h5>
+              <p class="card-text"><%=GeriatricUse%></p>
+            </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Drug Interactions</h5>
+              <p class="card-text"><%=DrugInteractions%></p>
+            </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Contraindications</h5>
+              <p class="card-text"><%=Contraindications%></p>
+            </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Info For Patients</h5>
+              <p class="card-text"><%=InfoForPatients%></p>
+            </div>
+          </div>
+          <hr />
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">Dosage Details</h5>
+              <h6 class="card-subtitle mb-2 text-muted">- Dosage Form</h6>
+              <p class="card-text"><%=DosageForm%></p>
+              <h6 class="card-subtitle mb-2 text-muted">- Over Dosage</h6>
+              <p class="card-text"><%=OverDosage%></p>
+            </div>
+          </div>
         </article>
+      </section>
     </section>
-</section>
-</body>
+  </body>
 </html>
