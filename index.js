@@ -26,7 +26,7 @@ app.use(express.static(__dirname));
 let con = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "crysis123",
+  password: "chinmay",
   database: "mydb",
 });
 
