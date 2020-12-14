@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="added and rendered drug browsing history + fixes">
-      <change beforePath="$PROJECT_DIR$/views/History.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/History.ejs" afterDir="false" />
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="fixed history exit button">
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +68,7 @@
       <workItem from="1607867406327" duration="1613000" />
       <workItem from="1607873248998" duration="4900000" />
       <workItem from="1607940110928" duration="260000" />
-      <workItem from="1607945583403" duration="4504000" />
+      <workItem from="1607945583403" duration="4622000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -77,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607950046703</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed history exit button">
+      <created>1607950149764</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607950149764</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,7 +105,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added and rendered drug browsing history" />
     <MESSAGE value="added and rendered drug browsing history + fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="added and rendered drug browsing history + fixes" />
+    <MESSAGE value="fixed history exit button" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed history exit button" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

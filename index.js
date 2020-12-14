@@ -436,12 +436,6 @@ app.get("/myHistory", (req, res) => {
         }
     });
 });
-// [
-//     [ 'Anagrelide Hydrochloride', '19:58', '13/11/2020' ],
-//     [ 'Colestipol Hydrochloride', '23:36', '13/11/2020' ],
-//     [ 'Duvelisib', '23:36', '13/11/2020' ]
-// ]
-
 
 //------------------------------------------------------------------//
 
@@ -463,3 +457,5 @@ app.listen(process.env.PORT || 777, () => {
 // CREATE TABLE `stores` (`store_id` int NOT NULL AUTO_INCREMENT, `StoreNames` varchar(100),`SearchedLocation` varchar(100),`StoreDistance` int,PRIMARY KEY(store_id));
 
 // CREATE TABLE `history` (`histID` int NOT NULL AUTO_INCREMENT, `UserName` varchar(100),`DrugName` varchar(100),`Time` varchar(100),`Date` varchar(100),PRIMARY KEY(histID));
+
+//CREATE TABLE `buyDrugs`();
