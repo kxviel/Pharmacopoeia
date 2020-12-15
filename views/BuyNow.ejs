@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G E M D R U G S</title>
+    <link rel="stylesheet" href="../css/BuyNow.css" class="css">
+</head>
+<body>
+<h2>G E M D R U G S</h2>
+<div class="container">
+    <form action="/buy" method="POST">
+        <label for="phone">Enter your phone number:</label>
+        <input type="tel" id="phone" name="phone">
+        <br><br>
+        <div class="address">
+            <label for="exampleFormControlInput1" class="form-label"> Address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1">
+        </div>
+        <br><br>
+        <label for="pin">PinCode:</label><br>
+        <input type="text" id="pin" name="pin" size="6">
+        <br><br>
+        <label for="Price">Price:</label><br>
+        <p id="threeDigit"></p>
+        <script>
+            let randomPrice = Math.floor(100 + Math.random() * 900);
+            document.getElementById("threeDigit").innerHTML = randomPrice;
+        </script>
+        <button type="submit">
+            Buy Now
+        </button>
+    </form>
+</div>
+<br><br>
+</body>
+</html>
+

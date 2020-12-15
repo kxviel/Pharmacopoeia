@@ -426,15 +426,27 @@ app.get("/myHistory", (req, res) => {
         if (err) throw err;
         let myList = [];
         if(result.length>0){
-        for(let i = 0; i < result.length; i++){
-            myList.push({drugName:CapMe(result[i].DrugName),time:CapMe(result[i].Time),date:CapMe(result[i].Date)})
-        }
+            for(let i = 0; i < result.length; i++){
+                myList.push({drugName:CapMe(result[i].DrugName),time:CapMe(result[i].Time),date:CapMe(result[i].Date)})
+            }
             res.render('History',{
                 User: CapMe(req.app.get('usernameL')),
                 data: myList
             });
         }
     });
+});
+
+//------------------------------------------------------------------//
+
+app.get('/BuyNow',function(req,res){
+    res.render('BuyNow', { });
+});
+
+//------------------------------------------------------------------//
+
+app.post('/buy',function(req,res){
+    res.sendFile(__dirname+'/images/PaymentDone.jpeg');
 });
 
 //------------------------------------------------------------------//

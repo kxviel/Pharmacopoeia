@@ -11,7 +11,7 @@
     />
     <title>History</title>
 </head>
-<body class="svg">
+<body>
 <!-- NavBar -->
 <nav>
     <div class="nav-wrapper black">
@@ -22,8 +22,8 @@
     </div>
 </nav>
 <ul class="collection">
-    <% data.forEach(function(dat) { %>
-        <li class="collection-item transparent "><%=dat.drugName%> :: <%= dat.time%> :: <%= dat.date%></li>
+    <% data.forEach(function(x) { %>
+        <li class="collection-item transparent "><%=x.drugName%> :: <%= x.time%> :: <%= x.date%></li>
     <% }); %>
 </ul>
 
