@@ -317,6 +317,7 @@ app.get("/map", (req, resmain) => {
             clientSecret +
             "&v=" +
             date;
+
         //Random Phone Number
         function phoneNumber() {
             let randomNumber = Math.floor("9" + Math.random() * 900000000);
@@ -421,15 +422,19 @@ app.get("/map", (req, resmain) => {
 //All Get Requests to '/myHistory'
 app.get("/myHistory", (req, res) => {
 
-    let sql = "SELECT * from history WHERE UserName = '"+req.app.get('usernameL')+"';";
+    let sql = "SELECT * from history WHERE UserName = '" + req.app.get('usernameL') + "';";
     con.query(sql, (err, result) => {
         if (err) throw err;
         let myList = [];
-        if(result.length>0){
-            for(let i = 0; i < result.length; i++){
-                myList.push({drugName:CapMe(result[i].DrugName),time:CapMe(result[i].Time),date:CapMe(result[i].Date)})
+        if (result.length > 0) {
+            for (let i = 0; i < result.length; i++) {
+                myList.push({
+                    drugName: CapMe(result[i].DrugName),
+                    time: CapMe(result[i].Time),
+                    date: CapMe(result[i].Date)
+                })
             }
-            res.render('History',{
+            res.render('History', {
                 User: CapMe(req.app.get('usernameL')),
                 data: myList
             });
@@ -439,14 +444,32 @@ app.get("/myHistory", (req, res) => {
 
 //------------------------------------------------------------------//
 
-app.get('/BuyNow',function(req,res){
-    res.render('BuyNow', { });
+app.get('/BuyNow', function (req, res) {
+    let myPrice = Math.floor(100 + Math.random() * 900);
+    app.set('myPrice', myPrice);
+    res.render('BuyNow', {
+        Price: myPrice
+    })
 });
 
 //------------------------------------------------------------------//
 
-app.post('/buy',function(req,res){
-    res.sendFile(__dirname+'/images/PaymentDone.jpeg');
+app.post('/buy', function (req, res) {
+
+
+    let phoneNo = req.body.phone;
+    let fullName = req.body.fullname;
+    let paymentMethod = req.body.method;
+    let address = req.body.subject;
+    let pincode = req.body.pin;
+    let currPrice = req.app.get('myPrice')
+
+
+    let sql = "INSERT INTO `buyDrugs`(`PhoneNo` ,`PaymentMethod` , `Address` ,`FullName` ,`Pincode` , `Price`) VALUES('" + phoneNo + "','" + paymentMethod + "','" + address + "','" + fullName + "','" + pincode + "','" + currPrice + "');";
+    con.query(sql, (err) => {
+        if (err) throw err;
+
+    });
 });
 
 //------------------------------------------------------------------//
@@ -470,4 +493,4 @@ app.listen(process.env.PORT || 777, () => {
 
 // CREATE TABLE `history` (`histID` int NOT NULL AUTO_INCREMENT, `UserName` varchar(100),`DrugName` varchar(100),`Time` varchar(100),`Date` varchar(100),PRIMARY KEY(histID));
 
-//CREATE TABLE `buyDrugs`();
+//CREATE TABLE `buyDrugs`(`buyerID` int NOT NULL AUTO_INCREMENT,`PhoneNo` varchar(20),`PaymentMethod` varchar(20), `Address` TEXT,`FullName` varchar(20),`Pincode` int, `Price` int,PRIMARY KEY(buyerID));
