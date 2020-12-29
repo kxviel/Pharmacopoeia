@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="added buying options">
-      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="first finish">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/BuyNow.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/BuyNow.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/BuyNow.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/BuyNow.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +40,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../my_site" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../nasa-app" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -83,7 +81,24 @@
       <workItem from="1607951524654" duration="1740000" />
       <workItem from="1607966541621" duration="498000" />
       <workItem from="1608006402556" duration="10272000" />
-      <workItem from="1608022949955" duration="13680000" />
+      <workItem from="1608022949955" duration="13876000" />
+      <workItem from="1608047904704" duration="596000" />
+      <workItem from="1608054963025" duration="87000" />
+      <workItem from="1608112799893" duration="42000" />
+      <workItem from="1608128120623" duration="25000" />
+      <workItem from="1608129646492" duration="9000" />
+      <workItem from="1608292119294" duration="2252000" />
+      <workItem from="1608294987751" duration="1144000" />
+      <workItem from="1608356391093" duration="907000" />
+      <workItem from="1608357927263" duration="721000" />
+      <workItem from="1608360120430" duration="485000" />
+      <workItem from="1608366838489" duration="822000" />
+      <workItem from="1608387384614" duration="681000" />
+      <workItem from="1608399299076" duration="189000" />
+      <workItem from="1608637895771" duration="3287000" />
+      <workItem from="1608649585904" duration="48000" />
+      <workItem from="1609223098502" duration="2155000" />
+      <workItem from="1609225346936" duration="81000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -113,7 +128,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608014078570</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="first finish">
+      <created>1608043418641</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1608043418641</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,7 +160,8 @@
     <MESSAGE value="fixed history exit button" />
     <MESSAGE value="removed unnecessary comments" />
     <MESSAGE value="added buying options" />
-    <option name="LAST_COMMIT_MESSAGE" value="added buying options" />
+    <MESSAGE value="first finish" />
+    <option name="LAST_COMMIT_MESSAGE" value="first finish" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

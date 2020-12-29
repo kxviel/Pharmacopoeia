@@ -421,25 +421,45 @@ app.get("/map", (req, resmain) => {
 //------------------------------------------------------------------//
 //All Get Requests to '/myHistory'
 app.get("/myHistory", (req, res) => {
-
-    let sql = "SELECT * from history WHERE UserName = '" + req.app.get('usernameL') + "';";
-    con.query(sql, (err, result) => {
-        if (err) throw err;
-        let myList = [];
-        if (result.length > 0) {
-            for (let i = 0; i < result.length; i++) {
-                myList.push({
-                    drugName: CapMe(result[i].DrugName),
-                    time: CapMe(result[i].Time),
-                    date: CapMe(result[i].Date)
-                })
+    console.log('App get success')
+    let myList = [];
+    if(req.app.get('usernameL') !== undefined){
+        let sql = "SELECT * from history WHERE UserName = '" + req.app.get('usernameL') + "';";
+        console.log(sql)
+        con.query(sql, (err, result) => {
+            if (err) throw err;
+            if (result.length !== 0) {
+                console.log('Result from DB Fetched');
+                for (let i = 0; i < result.length; i++) {
+                    console.log(`Index ${i} fetched`);
+                    myList.push({
+                        drugName: CapMe(result[i].DrugName),
+                        time: CapMe(result[i].Time),
+                        date: CapMe(result[i].Date)
+                    });
+                    console.log(`Index ${i} pushed to List`)
+                }
+                res.render('History', {
+                    User: CapMe(req.app.get('usernameL')),
+                    data: myList
+                });
+            } else {
+                let emptyList = [];
+                emptyList.push({
+                    drugName: 'Search for a Drug First',
+                    time: '-',
+                    date: '-'
+                });
+                res.render('History', {
+                        User: CapMe(req.app.get('usernameL')),
+                        data: emptyList
+                    }
+                )
             }
-            res.render('History', {
-                User: CapMe(req.app.get('usernameL')),
-                data: myList
-            });
-        }
-    });
+        });
+    }else{
+        res.sendFile(__dirname + "/views/LogIn.html");
+    }
 });
 
 //------------------------------------------------------------------//
@@ -456,7 +476,6 @@ app.get('/BuyNow', function (req, res) {
 
 app.post('/buy', function (req, res) {
 
-
     let phoneNo = req.body.phone;
     let fullName = req.body.fullname;
     let paymentMethod = req.body.method;
@@ -464,19 +483,17 @@ app.post('/buy', function (req, res) {
     let pincode = req.body.pin;
     let currPrice = req.app.get('myPrice')
 
-
     let sql = "INSERT INTO `buyDrugs`(`PhoneNo` ,`PaymentMethod` , `Address` ,`FullName` ,`Pincode` , `Price`) VALUES('" + phoneNo + "','" + paymentMethod + "','" + address + "','" + fullName + "','" + pincode + "','" + currPrice + "');";
     con.query(sql, (err) => {
         if (err) throw err;
-
     });
 });
 
 //------------------------------------------------------------------//
 
-//Server Launch at Port 777
-app.listen(process.env.PORT || 777, () => {
-    console.log("Server is Running at localhost:777");
+//Server Launch at Port 3000
+app.listen(process.env.PORT || 3000, () => {
+    console.log("Server is Running at localhost:3000");
 });
 
 //------------------------------------------------------------------//
