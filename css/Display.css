@@ -1,0 +1,9 @@
+.bgnav {
+    background-color: #ffe2e2;
+}
+
+.navbar-brand {
+    font-family: "Ubuntu", cursive;
+    color: black;
+    font-size: 6.5rem;
+}

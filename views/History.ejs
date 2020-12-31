@@ -14,18 +14,32 @@
 <body>
 <!-- NavBar -->
 <nav>
-    <div class="nav-wrapper black">
-        <a href="#" class="brand-logo center  white-text"><%=User%>'s Drug Search History</a>
+    <div class="nav-wrapper" style="background-color: #ffe2e2;">
+        <a href="#" class="brand-logo center black-text" style="font-size: 1.5rem;"><%= User %>'s Drug Search
+            History</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="../views/Home.html">❌</a></li>
         </ul>
     </div>
 </nav>
-<ul class="collection">
-    <% data.forEach(function(x) { %>
-        <li class="collection-item transparent "><%=x.drugName%> :: <%= x.time%> :: <%= x.date%></li>
-    <% }); %>
-</ul>
 
+<div style="padding: 2%">
+    <table>
+        <thead>
+        <tr>
+            <th>Drug Name</th>
+            <th>Time & Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% data.forEach(function(x) { %>
+        <tr>
+            <td><%= x.drugName %></td>
+            <td>at <%= x.time %> on <%= x.date %></td>
+        </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

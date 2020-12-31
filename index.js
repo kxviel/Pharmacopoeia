@@ -123,7 +123,7 @@ app.post("/home", (req, res) => {
 
 //------------------------------------------------------------------//
 
-//All Post Requests to '/display'
+// All Post Requests to '/display'
 app.post("/display", (req, res) => {
     let query = req.body.drug_name;
     let type = "brand_name";
@@ -179,9 +179,9 @@ app.post("/display", (req, res) => {
                 body += data;
             });
 
-            //three() => Renders to Index.ejs
+            //three() => Renders to Display.ejs
             function three() {
-                res.render("Index", {
+                res.render("Display", {
                     DrugName: drugName ?? "Data N/A",
                     DosageForm: dosageForm ?? "Data N/A",
                     OverDosage: JSON.parse(body).results[0]["overdosage"] ?? "Data N/A",
@@ -421,30 +421,25 @@ app.get("/map", (req, resmain) => {
 //------------------------------------------------------------------//
 //All Get Requests to '/myHistory'
 app.get("/myHistory", (req, res) => {
-    console.log('App get success')
     let myList = [];
+    let emptyList = [];
     if(req.app.get('usernameL') !== undefined){
         let sql = "SELECT * from history WHERE UserName = '" + req.app.get('usernameL') + "';";
-        console.log(sql)
         con.query(sql, (err, result) => {
             if (err) throw err;
             if (result.length !== 0) {
-                console.log('Result from DB Fetched');
                 for (let i = 0; i < result.length; i++) {
-                    console.log(`Index ${i} fetched`);
                     myList.push({
                         drugName: CapMe(result[i].DrugName),
                         time: CapMe(result[i].Time),
                         date: CapMe(result[i].Date)
                     });
-                    console.log(`Index ${i} pushed to List`)
                 }
                 res.render('History', {
                     User: CapMe(req.app.get('usernameL')),
                     data: myList
                 });
             } else {
-                let emptyList = [];
                 emptyList.push({
                     drugName: 'Search for a Drug First',
                     time: '-',

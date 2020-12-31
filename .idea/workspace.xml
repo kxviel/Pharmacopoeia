@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="first finish">
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="fixed history bugs">
+      <change afterPath="$PROJECT_DIR$/css/Display.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Display.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/History.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/History.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -98,7 +101,13 @@
       <workItem from="1608637895771" duration="3287000" />
       <workItem from="1608649585904" duration="48000" />
       <workItem from="1609223098502" duration="2155000" />
-      <workItem from="1609225346936" duration="81000" />
+      <workItem from="1609225346936" duration="1123000" />
+      <workItem from="1609242800525" duration="2979000" />
+      <workItem from="1609258851562" duration="2481000" />
+      <workItem from="1609293638733" duration="2331000" />
+      <workItem from="1609309559667" duration="456000" />
+      <workItem from="1609310062052" duration="3433000" />
+      <workItem from="1609334164548" duration="1180000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -135,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608043418641</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fixed history bugs">
+      <created>1609225507407</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1609225507407</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,7 +177,8 @@
     <MESSAGE value="removed unnecessary comments" />
     <MESSAGE value="added buying options" />
     <MESSAGE value="first finish" />
-    <option name="LAST_COMMIT_MESSAGE" value="first finish" />
+    <MESSAGE value="fixed history bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed history bugs" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
