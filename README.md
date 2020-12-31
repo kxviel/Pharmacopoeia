@@ -1,6 +1,6 @@
 # Pharmacopoeia
-<h3>An accurate pharmacopoeia for browsing important information on a drug</h3>
-<hr/>
+## An accurate pharmacopoeia for browsing important information on a drug
+
 ### Frameworks | Software | Languages Used:
 #### - Node JS
 #### - Express JS
