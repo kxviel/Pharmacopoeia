@@ -4,6 +4,7 @@ const https = require("https");
 const bodyP = require("body-parser");
 const mysql = require("mysql");
 const geoCode = require("node-geocoder");
+const axios = require("axios")
 
 //------------------------------------------------------------------//
 
@@ -48,14 +49,12 @@ let con = mysql.createPool({
 
 //------------------------------------------------------------------//
 
-//'/' is our Home Screen i.e. localhost:777
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/views/LogIn.html");
 });
 
 //------------------------------------------------------------------//
 
-//All Post Requests to '/home'
 app.post("/home", (req, res) => {
     //signinname == undefined => user logged in && loginpass == undefined => user signed up
     if (req.body.signinname === undefined) {
@@ -123,7 +122,6 @@ app.post("/home", (req, res) => {
 
 //------------------------------------------------------------------//
 
-// All Post Requests to '/display'
 app.post("/display", (req, res) => {
     let query = req.body.drug_name;
     let type = "brand_name";
@@ -136,7 +134,7 @@ app.post("/display", (req, res) => {
         ":" +
         query +
         "&limit=2";
-    let urlNdc =
+    let urlNDC =
         "https://api.fda.gov/drug/ndc.json?api_key=" +
         apiKey +
         "&search=" +
@@ -144,128 +142,85 @@ app.post("/display", (req, res) => {
         ":" +
         query +
         "&limit=2";
-
-    let drugName;
-    let dosageForm;
-    let brandName;
-    let route;
-    let pharmClass;
-    let labelerName;
-    let productType;
-
-    //one() => Stores Variables from NDC.json
-    function one() {
-        https.get(urlNdc, (response1) => {
-            console.log("HTTP Call 1 Done");
-
-            response1.on("data", (data) => {
-                drugName = JSON.parse(data).results[0]["generic_name"];
-                dosageForm = JSON.parse(data).results[0]["dosage_form"];
-                brandName = JSON.parse(data).results[0]["brand_name"];
-                route = JSON.parse(data).results[0]["route"];
-                pharmClass = JSON.parse(data).results[0]["pharm_class"];
-                labelerName = JSON.parse(data).results[0]["labeler_name"];
-                productType = JSON.parse(data).results[0]["product_type"];
-            });
-        });
-    }
-
-    //two() => Stores Variables from Label.json & Renders to Index.ejs
-    function two() {
-        https.get(urlLabel, (response2) => {
-            console.log("HTTP Call 2 Done");
-            let body = "";
-            response2.on("data", (data) => {
-                body += data;
-            });
-
-            //three() => Renders to Display.ejs
-            function three() {
-                res.render("Display", {
-                    DrugName: drugName ?? "Data N/A",
-                    DosageForm: dosageForm ?? "Data N/A",
-                    OverDosage: JSON.parse(body).results[0]["overdosage"] ?? "Data N/A",
-                    BrandName: brandName ?? "Data N/A",
-                    AdminRoute: route ?? "Data N/A",
-                    PharmacologicalClass: pharmClass ?? "Data N/A",
-                    LabelerName: labelerName ?? "Data N/A",
-                    Description: JSON.parse(body).results[0]["description"] ?? "Data N/A",
-                    ProductType: productType ?? "Data N/A",
+    //------------API Call------------//
+    axios.all([axios.get(urlNDC),
+        axios.get(urlLabel)])
+        .then(axios.spread((responseNDC, ResponseLabel) => {
+            const Render = () => {
+                res.render('Display', {
+                    //------------NDC------------//
+                    DrugName: CapMe(responseNDC.data.results[0]["generic_name"]) ?? "Data N/A",
+                    DosageForm: responseNDC.data.results[0]["dosage_form"] ?? "Data N/A",
+                    BrandName: CapMe(responseNDC.data.results[0]["brand_name"]) ?? "Data N/A",
+                    AdminRoute: responseNDC.data.results[0]["route"] ?? "Data N/A",
+                    PharmacologicalClass: responseNDC.data.results[0]["pharm_class"] ?? "Data N/A",
+                    LabelerName: responseNDC.data.results[0]["labeler_name"] ?? "Data N/A",
+                    ProductType: responseNDC.data.results[0]["product_type"] ?? "Data N/A",
+                    //------------Label------------//
+                    Description: ResponseLabel.data.results[0]["description"] ?? "Data N/A",
+                    OverDosage: ResponseLabel.data.results[0]["overdosage"] ?? "Data N/A",
                     PediatricUse:
-                        JSON.parse(body).results[0]["pediatric_use"] ?? "Data N/A",
+                        ResponseLabel.data.results[0]["pediatric_use"] ?? "Data N/A",
                     DrugInteractions:
-                        JSON.parse(body).results[0]["drug_interactions"] ?? "Data N/A",
+                        ResponseLabel.data.results[0]["drug_interactions"] ?? "Data N/A",
                     Contraindications:
-                        JSON.parse(body).results[0]["contraindications"] ?? "Data N/A",
+                        ResponseLabel.data.results[0]["contraindications"] ?? "Data N/A",
                     InfoForPatients:
-                        JSON.parse(body).results[0]["information_for_patients"] ??
+                        ResponseLabel.data.results[0]["information_for_patients"] ??
                         "Data N/A",
                     GeriatricUse:
-                        JSON.parse(body).results[0]["geriatric_use"] ?? "Data N/A",
+                        ResponseLabel.data.results[0]["geriatric_use"] ?? "Data N/A",
                 });
             }
-
-            //Avoid Duplicate Entries of Drug to Table
-            response2.on("end", () => {
-                let sql = "SELECT * FROM drugs WHERE DrugName ='" + drugName + "';";
-                con.query(sql, (err, result) => {
-                    if (err) throw err;
-                    if (result.length >= 1) {
-                        //if the drug name data exists in DB
-                        console.log(`Drug ${drugName} Exists in DB`);
-                        three();
-                        console.log("Display Rendered");
-                    } else {
-                        //if drug name doesnt exist in DB
-                        console.log("Drug Doesnt Exist in DB");
-                        let drugSQL =
-                            "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdminRoute`, `PharmacologicalClass`, `LabelerName`, `Description`, `ProductType`, `PediatricUse`, `DrugInteractions`, `Contraindications`, `InfoForPatients`, `GeriatricUse`) VALUES ('" +
-                            drugName +
-                            "', '" +
-                            dosageForm +
-                            "', '" +
-                            JSON.parse(body).results[0]["overdosage"] +
-                            "', '" +
-                            brandName +
-                            "', '" +
-                            route +
-                            "', '" +
-                            pharmClass +
-                            "','" +
-                            labelerName +
-                            "','" +
-                            JSON.parse(body).results[0]["description"] +
-                            "','" +
-                            productType +
-                            "','" +
-                            JSON.parse(body).results[0]["pediatric_use"] +
-                            "','" +
-                            JSON.parse(body).results[0]["drug_interactions"] +
-                            "','" +
-                            JSON.parse(body).results[0]["contraindications"] +
-                            "','" +
-                            JSON.parse(body).results[0]["information_for_patients"] +
-                            "','" +
-                            JSON.parse(body).results[0]["geriatric_use"] +
-                            "');INSERT INTO `history` (`UserName`, `DrugName`, `Date`, `Time`) VALUES ('" + req.app.get('usernameL') + "','" + drugName + "','" + currentDate + "','" + currentTime + "');";
-
-                        con.query(drugSQL, (err) => {
-                            if (err) throw err;
-                            console.log(`Drug ${drugName} Entered into DB`);
-                            three();
-                            console.log("Display Rendered");
-                        });
-
-
-                    }
-                });
+            let sql = "SELECT * FROM drugs WHERE DrugName ='" + responseNDC.data.results[0]["generic_name"] + "';";
+            con.query(sql, (err, result) => {
+                if (err) throw err;
+                if (result.length >= 1) {
+                    Render();
+                } else {
+                    let drugSQL =
+                        "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdminRoute`, `PharmacologicalClass`, `LabelerName`, `Description`, `ProductType`, `PediatricUse`, `DrugInteractions`, `Contraindications`, `InfoForPatients`, `GeriatricUse`) VALUES ('" +
+                        responseNDC.data.results[0]["generic_name"] +
+                        "', '" +
+                        responseNDC.data.results[0]["dosage_form"] +
+                        "', '" +
+                        ResponseLabel.data.results[0]["overdosage"] +
+                        "', '" +
+                        responseNDC.data.results[0]["brand_name"] +
+                        "', '" +
+                        responseNDC.data.results[0]["route"] +
+                        "', '" +
+                        responseNDC.data.results[0]["pharm_class"] +
+                        "','" +
+                        responseNDC.data.results[0]["labeler_name"] +
+                        "','" +
+                        ResponseLabel.data.results[0]["description"] +
+                        "','" +
+                        responseNDC.data.results[0]["product_type"] +
+                        "','" +
+                        ResponseLabel.data.results[0]["pediatric_use"] +
+                        "','" +
+                        ResponseLabel.data.results[0]["drug_interactions"] +
+                        "','" +
+                        ResponseLabel.data.results[0]["contraindications"] +
+                        "','" +
+                        ResponseLabel.data.results[0]["information_for_patients"] +
+                        "','" +
+                        ResponseLabel.data.results[0]["geriatric_use"] +
+                        "');" +
+                        "INSERT INTO `history` (`UserName`, `DrugName`, `Date`, `Time`) VALUES ('" +
+                        req.app.get('usernameL') + "','" +
+                        responseNDC.data.results[0]["generic_name"] + "','" +
+                        currentDate + "','" +
+                        currentTime + "');";
+                    con.query(drugSQL, (err) => {
+                        if (err) throw err;
+                        Render();
+                    });
+                }
             });
-        });
-    }
-
-    //Function Calls in Order
-    one();
-    two();
+        }))
+        .catch(error => console.log(error));
 });
 
 //------------------------------------------------------------------//
@@ -326,8 +281,8 @@ app.get("/map", (req, resmain) => {
 
         //Availability
         function availability() {
-            var yesNo = ["Yes", "No"];
-            var rand = Math.floor(Math.random() * yesNo.length);
+            let yesNo = ["Yes", "No"];
+            let rand = Math.floor(Math.random() * yesNo.length);
             return yesNo[rand];
         }
 
@@ -423,7 +378,7 @@ app.get("/map", (req, resmain) => {
 app.get("/myHistory", (req, res) => {
     let myList = [];
     let emptyList = [];
-    if(req.app.get('usernameL') !== undefined){
+    if (req.app.get('usernameL') !== undefined) {
         let sql = "SELECT * from history WHERE UserName = '" + req.app.get('usernameL') + "';";
         con.query(sql, (err, result) => {
             if (err) throw err;
@@ -452,7 +407,7 @@ app.get("/myHistory", (req, res) => {
                 )
             }
         });
-    }else{
+    } else {
         res.sendFile(__dirname + "/views/LogIn.html");
     }
 });
@@ -469,7 +424,7 @@ app.get('/BuyNow', function (req, res) {
 
 //------------------------------------------------------------------//
 
-app.post('/buy', function (req, res) {
+app.post('/buy', function (req) {
 
     let phoneNo = req.body.phone;
     let fullName = req.body.fullname;
