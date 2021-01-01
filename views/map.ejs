@@ -1,50 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
-      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
+            rel="stylesheet"
     />
     <!-- Material CSS -->
     <link
-      type="text/css"
-      rel="stylesheet"
-      href="../css/materialize.css"
-      media="screen,projection"
+            type="text/css"
+            rel="stylesheet"
+            href="../css/materialize.css"
+            media="screen,projection"
     />
     <title>Maps</title>
-  </head>
-  <body>
-    <!-- NavBar -->
-    <nav class="nav-wrapper grey black">
+</head>
+<body>
+<!-- NavBar -->
+<nav class="nav-wrapper" style="background-color: #ffe2e2">
       <span
-        class="brand-logo center light-text Ghead"
-        style="font-family: 'Sacramento', cursive; font-size: xx-large"
-        ><a href="/views/Home.html">Gem Drugs</a></span
+              class="brand-logo center"
+
+      ><a style="font-family: 'Sacramento', cursive; font-size: 2.0rem; color: black"
+          href="/views/Home.html">Gem Drugs</a></span
       >
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/BuyNow">Buy Now</a></li>
-      </ul>
-    </nav>
-    <!-- Collections -->
-    <ul class="collection with-header">
-      <li class="collection-header"><h4>Pharmacies Near Me</h4></li>
-      <% Deets.forEach(function(x) { %>
-      <li class="collection-item avatar">
-        <span class="title"><%=x.PharmacyName%></span>
-        <p>
-          Drug Availability: <%=x.DrugAvailability%> <br />
-          Phone: <%=x.ContactNumber%> <br />
-          City: <%=x.CityName%> <br />
-        </p>
-        <a class="secondary-content">Distance: <%=x.DistanceFromYou%>m</a>
-      </li>
-      <% }); %>
     </ul>
-    <!-- Material JS -->
-    <script type="text/javascript" src="../js/materialize.js"></script>
-  </body>
+</nav>
+<!-- Collections -->
+<ul style="padding: 1%" class="collection with-header">
+    <li class="collection-header"><h4>Pharmacies Near Me</h4></li>
+    <% Deets.forEach(function(x) { %>
+    <li class="collection-item avatar">
+        <span class="title"><%= x.PharmacyName %></span>
+        <p>
+            Drug Availability: <%= x.DrugAvailability %> <br/>
+            Phone: <%= x.ContactNumber %> <br/>
+            City: <%= x.CityName %> <br/>
+        </p>
+        <a class="secondary-content">Distance: <%= x.DistanceFromYou %>m</a>
+    </li>
+    <% }); %>
+</ul>
+<!-- Material JS -->
+<script type="text/javascript" src="../js/materialize.js"></script>
+</body>
 </html>
