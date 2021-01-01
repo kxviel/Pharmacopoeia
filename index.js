@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const https = require("https");
 const bodyP = require("body-parser");
 const mysql = require("mysql");
 const geoCode = require("node-geocoder");
@@ -252,125 +251,108 @@ app.get("/map", (req, resmain) => {
     };
     let geoCoder = geoCode(options);
 
-    async function getLatLang() {
-        myBody = await geoCoder.geocode(myLocation);
-    }
+    //Self Invoking Function
+    (async function getLatLang() {
+        myBody = await geoCoder.geocode(myLocation).then( leResponse => {
+            latitude = leResponse[0]["latitude"];
+            longitude = leResponse[0]["longitude"];
+            let mapURL =
+                "https://api.foursquare.com/v2/venues/search?ll=" +
+                latitude +
+                "," +
+                longitude +
+                "&query=" +
+                query +
+                "&radius=10000&client_id=" +
+                clientID +
+                "&client_secret=" +
+                clientSecret +
+                "&v=" +
+                date;
 
-    function getMapURL() {
-        latitude = myBody[0]["latitude"];
-        longitude = myBody[0]["longitude"];
-        let mapURL =
-            "https://api.foursquare.com/v2/venues/search?ll=" +
-            latitude +
-            "," +
-            longitude +
-            "&query=" +
-            query +
-            "&radius=10000&client_id=" +
-            clientID +
-            "&client_secret=" +
-            clientSecret +
-            "&v=" +
-            date;
+            //Random Phone Number
+            function phoneNumber() {
+                let randomNumber = Math.floor(Math.random() * 900000000);
+                return `+91 9${randomNumber}`;
+            }
 
-        //Random Phone Number
-        function phoneNumber() {
-            let randomNumber = Math.floor("9" + Math.random() * 900000000);
-            return "+91 " + `${randomNumber}`;
-        }
+            //Availability
+            function availability() {
+                let yesNo = ["Yes", "No"];
+                let rand = Math.floor(Math.random() * yesNo.length);
+                return yesNo[rand];
+            }
 
-        //Availability
-        function availability() {
-            let yesNo = ["Yes", "No"];
-            let rand = Math.floor(Math.random() * yesNo.length);
-            return yesNo[rand];
-        }
-
-        //Parse JSON and Render
-        https
-            .get(mapURL, (res) => {
-                var json = "";
-                res.on("data", (chunk) => {
-                    json += chunk;
-                });
-                res.on("end", () => {
-                    if (res.statusCode === 200) {
-                        try {
-                            var i;
-
-                            for (i = 0; i <= 4; i++) {
-                                a[i] = JSON.parse(json).response.venues[i].name;
-                                b[i] = JSON.parse(json).response.venues[i].location.distance;
-                                c[i] = JSON.parse(json).response.venues[i].location.city;
-                                d[i] = availability();
-                                e[i] = phoneNumber();
-                            }
-
-                            //Insert Data Into Table
-                            for (i = 0; i <= 4; i++) {
-                                let sql =
-                                    "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" +
-                                    a[i] +
-                                    "','" +
-                                    myLocation +
-                                    "','" +
-                                    b[i] +
-                                    "','" +
-                                    d[i] +
-                                    "','" +
-                                    e[i] +
-                                    "','" +
-                                    c[i] +
-                                    "');";
-                                con.query(sql, (err) => {
-                                    if (err) throw err;
-                                });
-                            }
-
-                            resmain.render("Map", {
-                                Heading: "Pharmacies Near Me",
-                                loc1: a[0] ?? "No Shops Nearby",
-                                loc2: a[1] ?? "No Shops Nearby",
-                                loc3: a[2] ?? "No Shops Nearby",
-                                loc4: a[3] ?? "No Shops Nearby",
-                                loc5: a[4] ?? "No Shops Nearby",
-                                met1: b[0] ?? "N/A",
-                                met2: b[1] ?? "N/A",
-                                met3: b[2] ?? "N/A",
-                                met4: b[3] ?? "N/A",
-                                met5: b[4] ?? "N/A",
-                                cit1: c[0] ?? "N/A",
-                                cit2: c[1] ?? "N/A",
-                                cit3: c[2] ?? "N/A",
-                                cit4: c[3] ?? "N/A",
-                                cit5: c[4] ?? "N/A",
-                                phone1: e[0],
-                                avail1: d[0],
-                                phone2: e[1],
-                                avail2: d[1],
-                                phone3: e[2],
-                                avail3: d[2],
-                                phone4: e[3],
-                                avail4: d[3],
-                                phone5: e[4],
-                                avail5: d[4],
-                            });
-                        } catch (exc) {
-                            console.log(exc, "Error parsing JSON!");
+            axios.get(mapURL).then(res => {
+                if (res.status === 200) {
+                    try {
+                        for (let i = 0; i <= 4; i++) {
+                            a[i] = res.data.response['venues'][i].name;
+                            b[i] = res.data.response['venues'][i].location['distance'];
+                            c[i] = res.data.response['venues'][i].location.city;
+                            d[i] = availability();
+                            e[i] = phoneNumber();
                         }
-                    } else {
-                        console.log("Status:", res.statusCode);
-                    }
-                });
-            })
-            .on("error", (err) => {
-                console.log("Error:", err);
-            });
-    }
 
-    //Resolve Async Function
-    getLatLang();
-    setTimeout(getMapURL, 3000);
+                        //Insert Data Into Table
+                        for (let i = 0; i <= 4; i++) {
+                            let sql =
+                                "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" +
+                                a[i] +
+                                "','" +
+                                myLocation +
+                                "','" +
+                                b[i] +
+                                "','" +
+                                d[i] +
+                                "','" +
+                                e[i] +
+                                "','" +
+                                c[i] +
+                                "');";
+                            con.query(sql, (err) => {
+                                if (err) throw err;
+                            });
+                        }
+
+                        resmain.render("Map", {
+                            Heading: "Pharmacies Near Me",
+                            loc1: a[0] ?? "No Shops Nearby",
+                            loc2: a[1] ?? "No Shops Nearby",
+                            loc3: a[2] ?? "No Shops Nearby",
+                            loc4: a[3] ?? "No Shops Nearby",
+                            loc5: a[4] ?? "No Shops Nearby",
+                            met1: b[0] ?? "N/A",
+                            met2: b[1] ?? "N/A",
+                            met3: b[2] ?? "N/A",
+                            met4: b[3] ?? "N/A",
+                            met5: b[4] ?? "N/A",
+                            cit1: c[0] ?? "N/A",
+                            cit2: c[1] ?? "N/A",
+                            cit3: c[2] ?? "N/A",
+                            cit4: c[3] ?? "N/A",
+                            cit5: c[4] ?? "N/A",
+                            phone1: e[0],
+                            avail1: d[0],
+                            phone2: e[1],
+                            avail2: d[1],
+                            phone3: e[2],
+                            avail3: d[2],
+                            phone4: e[3],
+                            avail4: d[3],
+                            phone5: e[4],
+                            avail5: d[4],
+                        });
+                    } catch (exc) {
+                        console.log(exc, "Error parsing JSON!");
+                    }
+                } else {
+                    console.log("Status:", res.status);
+                }
+            }).catch(error => console.log(error));
+    }).catch(error => console.log(error));
+    })();
+
 });
 
 //------------------------------------------------------------------//
