@@ -226,10 +226,6 @@ app.post("/display", (req, res) => {
 
 //All Get Requests to '/map'
 app.get("/map", (req, mainResponse) => {
-    //url Variables
-    const clientID = "BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN";
-    const clientSecret = "DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ";
-
     //Geocode
     let geoCoder = geoCode({
         provider: "openstreetmap",
@@ -240,8 +236,6 @@ app.get("/map", (req, mainResponse) => {
         await geoCoder.geocode(req.query.Current_location).then(daResponse => {
             let latitude = daResponse[0]["latitude"];
             let longitude = daResponse[0]["longitude"];
-            let mapURL =
-                `https://api.foursquare.com/v2/venues/search?ll=${latitude},${longitude}&query=pharmacy&radius=10000&client_id=${clientID}&client_secret=${clientSecret}&v=20210101`;
 
             function phoneNumber() {
                 return `+91 9${Math.floor(Math.random() * 900000000)}`;
@@ -253,11 +247,11 @@ app.get("/map", (req, mainResponse) => {
             }
 
             let locationDetails = [];
-            axios.get(mapURL).then(res => {
+            axios.get('https://api.foursquare.com/v2/venues/search?ll='+latitude+','+longitude+'&query=pharmacy&radius=10000&client_id=BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN&client_secret=DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ&v=20210101').then(res => {
                 if (res.status === 200 && res.data.response['venues'].length !== 0) {
                     for (let i = 0; i <= 4; i++) {
                         locationDetails.push({
-                            PharmacyName: res.data.response['venues'][i]['name'],
+                            PharmacyName: res.data.response['venues'][i]['name'] ,
                             DrugAvailability: availability(),
                             ContactNumber: phoneNumber(),
                             CityName: res.data.response['venues'][i]['location']['city'],

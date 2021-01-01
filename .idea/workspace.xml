@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="added a self executing async function for location api call">
-      <change afterPath="$PROJECT_DIR$/images/oops.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/Oops.html" afterDir="false" />
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="code refactors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Display.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/Display.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/map.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/map.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +107,8 @@
       <workItem from="1609419955577" duration="288000" />
       <workItem from="1609420483088" duration="7605000" />
       <workItem from="1609475200135" duration="5995000" />
-      <workItem from="1609482531251" duration="2691000" />
+      <workItem from="1609482531251" duration="3477000" />
+      <workItem from="1609490543026" duration="4766000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -176,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609476039659</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="code refactors">
+      <created>1609485389122</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1609485389122</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,7 +211,8 @@
     <MESSAGE value="removed redundant api calls aka used axios" />
     <MESSAGE value="added a self executing asyn function for location api call" />
     <MESSAGE value="added a self executing async function for location api call" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a self executing async function for location api call" />
+    <MESSAGE value="code refactors" />
+    <option name="LAST_COMMIT_MESSAGE" value="code refactors" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
