@@ -225,132 +225,62 @@ app.post("/display", (req, res) => {
 //------------------------------------------------------------------//
 
 //All Get Requests to '/map'
-app.get("/map", (req, resmain) => {
-    //Get form data with city name
-    let myLocation = req.query.mylocation;
-
+app.get("/map", (req, mainResponse) => {
     //url Variables
     const clientID = "BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN";
     const clientSecret = "DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ";
-    const query = "pharmacy";
-    const date = "20201120";
-
-    //Get Lat and Long from City Name Entered
-    let latitude;
-    let longitude;
-    let myBody;
-    let a = [],
-        b = [],
-        c = [],
-        d = [],
-        e = [];
 
     //Geocode
-    let options = {
+    let geoCoder = geoCode({
         provider: "openstreetmap",
-    };
-    let geoCoder = geoCode(options);
+    });
 
     //Self Invoking Function
-    (async function getLatLang() {
-        myBody = await geoCoder.geocode(myLocation).then( leResponse => {
-            latitude = leResponse[0]["latitude"];
-            longitude = leResponse[0]["longitude"];
+    (async function GetLatLang() {
+        await geoCoder.geocode(req.query.Current_location).then(daResponse => {
+            let latitude = daResponse[0]["latitude"];
+            let longitude = daResponse[0]["longitude"];
             let mapURL =
-                "https://api.foursquare.com/v2/venues/search?ll=" +
-                latitude +
-                "," +
-                longitude +
-                "&query=" +
-                query +
-                "&radius=10000&client_id=" +
-                clientID +
-                "&client_secret=" +
-                clientSecret +
-                "&v=" +
-                date;
+                `https://api.foursquare.com/v2/venues/search?ll=${latitude},${longitude}&query=pharmacy&radius=10000&client_id=${clientID}&client_secret=${clientSecret}&v=20210101`;
 
-            //Random Phone Number
             function phoneNumber() {
-                let randomNumber = Math.floor(Math.random() * 900000000);
-                return `+91 9${randomNumber}`;
+                return `+91 9${Math.floor(Math.random() * 900000000)}`;
             }
 
-            //Availability
             function availability() {
                 let yesNo = ["Yes", "No"];
-                let rand = Math.floor(Math.random() * yesNo.length);
-                return yesNo[rand];
+                return yesNo[Math.floor(Math.random() * yesNo.length)];
             }
 
+            let locationDetails = [];
             axios.get(mapURL).then(res => {
-                if (res.status === 200) {
-                    try {
-                        for (let i = 0; i <= 4; i++) {
-                            a[i] = res.data.response['venues'][i].name;
-                            b[i] = res.data.response['venues'][i].location['distance'];
-                            c[i] = res.data.response['venues'][i].location.city;
-                            d[i] = availability();
-                            e[i] = phoneNumber();
-                        }
-
-                        //Insert Data Into Table
-                        for (let i = 0; i <= 4; i++) {
-                            let sql =
-                                "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" +
-                                a[i] +
-                                "','" +
-                                myLocation +
-                                "','" +
-                                b[i] +
-                                "','" +
-                                d[i] +
-                                "','" +
-                                e[i] +
-                                "','" +
-                                c[i] +
-                                "');";
-                            con.query(sql, (err) => {
-                                if (err) throw err;
-                            });
-                        }
-
-                        resmain.render("Map", {
-                            Heading: "Pharmacies Near Me",
-                            loc1: a[0] ?? "No Shops Nearby",
-                            loc2: a[1] ?? "No Shops Nearby",
-                            loc3: a[2] ?? "No Shops Nearby",
-                            loc4: a[3] ?? "No Shops Nearby",
-                            loc5: a[4] ?? "No Shops Nearby",
-                            met1: b[0] ?? "N/A",
-                            met2: b[1] ?? "N/A",
-                            met3: b[2] ?? "N/A",
-                            met4: b[3] ?? "N/A",
-                            met5: b[4] ?? "N/A",
-                            cit1: c[0] ?? "N/A",
-                            cit2: c[1] ?? "N/A",
-                            cit3: c[2] ?? "N/A",
-                            cit4: c[3] ?? "N/A",
-                            cit5: c[4] ?? "N/A",
-                            phone1: e[0],
-                            avail1: d[0],
-                            phone2: e[1],
-                            avail2: d[1],
-                            phone3: e[2],
-                            avail3: d[2],
-                            phone4: e[3],
-                            avail4: d[3],
-                            phone5: e[4],
-                            avail5: d[4],
-                        });
-                    } catch (exc) {
-                        console.log(exc, "Error parsing JSON!");
+                if (res.status === 200 && res.data.response['venues'].length !== 0) {
+                    for (let i = 0; i <= 4; i++) {
+                        locationDetails.push({
+                            PharmacyName: res.data.response['venues'][i]['name'],
+                            DrugAvailability: availability(),
+                            ContactNumber: phoneNumber(),
+                            CityName: res.data.response['venues'][i]['location']['city'],
+                            DistanceFromYou: res.data.response['venues'][i]['location']['distance']
+                        })
                     }
+
+                    //Insert Data Into Table
+                    for (let i = 0; i <= 4; i++) {
+                        let sql =
+                            "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" + locationDetails[i].PharmacyName + "','" + req.query.Current_location + "','" + locationDetails[i].DistanceFromYou + "','" + locationDetails[i].DrugAvailability + "','" + locationDetails[i].ContactNumber + "','" + locationDetails[i].CityName + "');";
+                        con.query(sql, (err) => {
+                            if (err) throw err;
+                        });
+                    }
+                    mainResponse.render("Map", {
+                        Deets: locationDetails
+                    });
                 } else {
-                    console.log("Status:", res.status);
+                    mainResponse.sendFile(__dirname + '/views/Oops.html')
                 }
             }).catch(error => console.log(error));
-    }).catch(error => console.log(error));
+        }).catch(error => console.log(error));
     })();
 
 });

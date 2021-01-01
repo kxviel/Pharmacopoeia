@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="removed redundant api calls aka used axios">
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="added a self executing async function for location api call">
+      <change afterPath="$PROJECT_DIR$/images/oops.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Oops.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Display.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/Display.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/map.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/map.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -106,7 +110,8 @@
       <workItem from="1609334164548" duration="1180000" />
       <workItem from="1609419955577" duration="288000" />
       <workItem from="1609420483088" duration="7605000" />
-      <workItem from="1609475200135" duration="741000" />
+      <workItem from="1609475200135" duration="5995000" />
+      <workItem from="1609482531251" duration="2691000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -164,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609434630550</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added a self executing async function for location api call">
+      <created>1609476039659</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1609476039659</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,7 +205,9 @@
     <MESSAGE value="fixed history bugs" />
     <MESSAGE value="refactored drug detail display" />
     <MESSAGE value="removed redundant api calls aka used axios" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed redundant api calls aka used axios" />
+    <MESSAGE value="added a self executing asyn function for location api call" />
+    <MESSAGE value="added a self executing async function for location api call" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a self executing async function for location api call" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
