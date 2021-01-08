@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="code refactors">
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="more code refactors">
+      <change afterPath="$PROJECT_DIR$/images/a.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/BuyNow.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/BuyNow.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/BuyNow.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/BuyNow.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/map.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/map.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +42,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../nasa-app/src/Components/AstronomyPictureOfTheDay/APOD.js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -108,7 +111,12 @@
       <workItem from="1609420483088" duration="7605000" />
       <workItem from="1609475200135" duration="5995000" />
       <workItem from="1609482531251" duration="3477000" />
-      <workItem from="1609490543026" duration="4766000" />
+      <workItem from="1609490543026" duration="4966000" />
+      <workItem from="1609589363259" duration="626000" />
+      <workItem from="1609599250229" duration="2399000" />
+      <workItem from="1609657386006" duration="1928000" />
+      <workItem from="1609664453163" duration="1832000" />
+      <workItem from="1610085561519" duration="1011000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -180,7 +188,21 @@
       <option name="project" value="LOCAL" />
       <updated>1609485389122</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="more code refactors">
+      <created>1609496130035</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609496130036</updated>
+    </task>
+    <task id="LOCAL-00012" summary="more code refactors">
+      <created>1609496222245</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1609496222245</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,7 +234,8 @@
     <MESSAGE value="added a self executing asyn function for location api call" />
     <MESSAGE value="added a self executing async function for location api call" />
     <MESSAGE value="code refactors" />
-    <option name="LAST_COMMIT_MESSAGE" value="code refactors" />
+    <MESSAGE value="more code refactors" />
+    <option name="LAST_COMMIT_MESSAGE" value="more code refactors" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
