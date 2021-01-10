@@ -144,7 +144,7 @@ app.post("/display", (req, res) => {
     //------------API Call------------//
     axios.all([axios.get(urlNDC),
         axios.get(urlLabel)])
-        .then(axios.spread((responseNDC, ResponseLabel) => {
+        .then(axios.spread((responseNDC, responseLabel) => {
             const Render = () => {
                 res.render('Display', {
                     //------------NDC------------//
@@ -156,19 +156,19 @@ app.post("/display", (req, res) => {
                     LabelerName: responseNDC.data.results[0]["labeler_name"] ?? "Data N/A",
                     ProductType: responseNDC.data.results[0]["product_type"] ?? "Data N/A",
                     //------------Label------------//
-                    Description: ResponseLabel.data.results[0]["description"] ?? "Data N/A",
-                    OverDosage: ResponseLabel.data.results[0]["overdosage"] ?? "Data N/A",
+                    Description: responseLabel.data.results[0]["description"] ?? "Data N/A",
+                    OverDosage: responseLabel.data.results[0]["overdosage"] ?? "Data N/A",
                     PediatricUse:
-                        ResponseLabel.data.results[0]["pediatric_use"] ?? "Data N/A",
+                        responseLabel.data.results[0]["pediatric_use"] ?? "Data N/A",
                     DrugInteractions:
-                        ResponseLabel.data.results[0]["drug_interactions"] ?? "Data N/A",
+                        responseLabel.data.results[0]["drug_interactions"] ?? "Data N/A",
                     Contraindications:
-                        ResponseLabel.data.results[0]["contraindications"] ?? "Data N/A",
+                        responseLabel.data.results[0]["contraindications"] ?? "Data N/A",
                     InfoForPatients:
-                        ResponseLabel.data.results[0]["information_for_patients"] ??
+                        responseLabel.data.results[0]["information_for_patients"] ??
                         "Data N/A",
                     GeriatricUse:
-                        ResponseLabel.data.results[0]["geriatric_use"] ?? "Data N/A",
+                        responseLabel.data.results[0]["geriatric_use"] ?? "Data N/A",
                 });
             }
             let sql = "SELECT * FROM drugs WHERE DrugName ='" + responseNDC.data.results[0]["generic_name"] + "';";
@@ -183,7 +183,7 @@ app.post("/display", (req, res) => {
                         "', '" +
                         responseNDC.data.results[0]["dosage_form"] +
                         "', '" +
-                        ResponseLabel.data.results[0]["overdosage"] +
+                        responseLabel.data.results[0]["overdosage"] +
                         "', '" +
                         responseNDC.data.results[0]["brand_name"] +
                         "', '" +
@@ -193,19 +193,19 @@ app.post("/display", (req, res) => {
                         "','" +
                         responseNDC.data.results[0]["labeler_name"] +
                         "','" +
-                        ResponseLabel.data.results[0]["description"] +
+                        responseLabel.data.results[0]["description"] +
                         "','" +
                         responseNDC.data.results[0]["product_type"] +
                         "','" +
-                        ResponseLabel.data.results[0]["pediatric_use"] +
+                        responseLabel.data.results[0]["pediatric_use"] +
                         "','" +
-                        ResponseLabel.data.results[0]["drug_interactions"] +
+                        responseLabel.data.results[0]["drug_interactions"] +
                         "','" +
-                        ResponseLabel.data.results[0]["contraindications"] +
+                        responseLabel.data.results[0]["contraindications"] +
                         "','" +
-                        ResponseLabel.data.results[0]["information_for_patients"] +
+                        responseLabel.data.results[0]["information_for_patients"] +
                         "','" +
-                        ResponseLabel.data.results[0]["geriatric_use"] +
+                        responseLabel.data.results[0]["geriatric_use"] +
                         "');" +
                         "INSERT INTO `history` (`UserName`, `DrugName`, `Date`, `Time`) VALUES ('" +
                         req.app.get('usernameL') + "','" +

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G E M D R U G S</title>
     <link rel="stylesheet" href="../css/BuyNow.css" class="css">
+ 
     <!-- Bootstrap CSS -->
     <link
             rel="stylesheet"
@@ -12,36 +13,64 @@
             integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
             crossorigin="anonymous"
     />
+    
+    <!-- Material CSS -->
+    <link
+            type="text/css"
+            rel="stylesheet"
+            href="../css/materialize.css"
+            media="screen,projection"
+    />
 </head>
-<body>
+<body style="background-color: black;">
 <nav style="background-color: #ffe2e2;" class="navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="../views/Home.html">Back</a>
-        <a class="navbar-brand">Payment Form</a>
-    </div>
+    
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../views/Home.html" style="color: black;">Back</a>
+            <a class="navbar-brand" style="color: black; text-align:left;">Payment Form</a>
+        </div>
 </nav>
 
-<div class="container">
+<div class="container" style="background-color: black;">
     <form action="/buy" method="POST">
-        <label for="fname">Name</label><br>
+        <label for="fname" style="color: white; font-size: medium;">Name</label><br>
         <input type="text" id="fname" name="fullname" placeholder="Your Full name.." required>
         <br>
-        <label for="PhoneNo">Phone Number</label><br>
+        <label for="PhoneNo" style="color: white;  font-size: medium;">Phone Number</label><br>
         <input type="tel" id="PhoneNo" name="phone" placeholder="Your Phone Number.." required>
         <br>
-        <label for="pay">Payment Method</label><br>
-        <select id="pay" name="method">
+        <!-- <label for="pay" style="color: white;  font-size: medium;">Payment Method</label><br> -->
+        <!-- <select class="form-select" aria-label="Default select example" name="method">
+            <option selected>Payment methods</option>
             <option value="upi">UPI</option>
             <option value="cod">Cash On Delivery</option>
             <option value="debit">Debit</option>
-        </select>
+        </select> -->
+        <!-- <div class="input-field col s12">
+            <select>
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+            <label>Materialize Select</label>
+        </div> -->
+        <div class = "row" >
+            <label style="color: white;  font-size: medium;">Payment method</label>
+            <select multiple>
+               <option value = "" disabled selected>Select Fruit</option>
+               <option value = "1">Mango</option>
+               <option value = "2">Orange</option>
+               <option value = "3">Apple</option>
+            </select>              
+         </div>
         <br>
-        <label for="subject">Address</label><br>
+        <label for="subject" style="color: white;  font-size: medium;">Address</label><br>
         <textarea id="subject" name="subject" placeholder="Enter Your Address" style="height:130px" required></textarea><br>
-        <label for="pin">Pincode</label><br>
+        <label for="pin" style="color: white;  font-size: medium;">Pincode</label><br>
         <input type="text" id="pin" name="pin" placeholder="Your Pincode.." required>
         <br>
-        <h4>Total Amount: <%= Price %>₹</h4>
+        <h4 style="color: white;">Total Amount: <%= Price %>₹</h4>
         <br>
         <!-- Button trigger modal -->
         <button  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit"
@@ -66,17 +95,23 @@
                     <img src="../images/PaymentDone.jpeg" alt="">
                 </div>
                 <div class="modal-footer">
-                    <button type="button"  class="btn btn-primary"><a href="../views/Home.html">Done</a></button>
+                    <button type="button"  class="btn btn-primary"><a href="../views/Home.html" style="color: black;">Done</a></button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        $(document).ready(function() {
+           $('select').material_select();
+        });
+     </script>
+
+    <!-- <script>
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
         })
-    </script>
+    </script> -->
 </div>
 <!-- Bootstrap JS -->
 <script
@@ -89,6 +124,7 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"
 ></script>
+
 </body>
 </html>
 
