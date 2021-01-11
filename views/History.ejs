@@ -11,7 +11,7 @@
     />
     <title>History</title>
 </head>
-<body>
+<body style="background-color:black;">
 <!-- NavBar -->
 <nav>
     <div class="nav-wrapper" style="background-color: #ffe2e2;">
@@ -27,15 +27,15 @@
     <table>
         <thead>
         <tr>
-            <th>Drug Name</th>
-            <th>Time & Date</th>
+            <th style="color: white;">Drug Name</th>
+            <th style="color: white;">Time & Date</th>
         </tr>
         </thead>
         <tbody>
         <% data.forEach(function(x) { %>
         <tr>
-            <td><%= x.drugName %></td>
-            <td>at <%= x.time %> on <%= x.date %></td>
+            <td style="color: white;"><%= x.drugName %></td>
+            <td style="color: white;">at <%= x.time %> on <%= x.date %></td>
         </tr>
         <% }); %>
         </tbody>

@@ -17,7 +17,7 @@
     />
     <title>Maps</title>
 </head>
-<body>
+<body  style="background-color: black;">
 <!-- NavBar -->
 <nav class="nav-wrapper" style="background-color: #ffe2e2">
       <span
@@ -31,17 +31,17 @@
     </ul>
 </nav>
 <!-- Collections -->
-<ul style="padding: 1%" class="collection with-header">
-    <li class="collection-header"><h4>Pharmacies Near Me</h4></li>
+<ul style="padding: 1%" class="collection with-header"  style="background-color: black;">
+    <li class="collection-header" style="background-color: black; color: white;" ><h4>Pharmacies Near Me</h4></li>
     <% Deets.forEach(function(x) { %>
-    <li class="collection-item avatar">
+    <li class="collection-item avatar" style="background-color: black; color: white;">
         <span class="title"><%= x.PharmacyName %></span>
-        <p>
+        <p >
             Drug Availability: <%= x.DrugAvailability %> <br/>
             Phone: <%= x.ContactNumber %> <br/>
             City: <%= x.CityName %> <br/>
         </p>
-        <a class="secondary-content">Distance: <%= x.DistanceFromYou %>m</a>
+        <a class="secondary-content" >Distance: <%= x.DistanceFromYou %>m</a>
     </li>
     <% }); %>
 </ul>
