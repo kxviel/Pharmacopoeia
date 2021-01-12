@@ -262,7 +262,7 @@ app.get("/map", (req, mainResponse) => {
                     //Insert Data Into Table
                     for (let i = 0; i <= 4; i++) {
                         let sql =
-                            "INSERT INTO `stores` (`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" + locationDetails[i].PharmacyName + "','" + req.query.Current_location + "','" + locationDetails[i].DistanceFromYou + "','" + locationDetails[i].DrugAvailability + "','" + locationDetails[i].ContactNumber + "','" + locationDetails[i].CityName + "');";
+                            "INSERT INTO `stores` (`CurrentUser`,`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('"+req.app.get('usernameL')+"','" + locationDetails[i].PharmacyName + "','" + req.query.Current_location + "','" + locationDetails[i].DistanceFromYou + "','" + locationDetails[i].DrugAvailability + "','" + locationDetails[i].ContactNumber + "','" + locationDetails[i].CityName + "');";
                         con.query(sql, (err) => {
                             if (err) throw err;
                         });
@@ -276,7 +276,6 @@ app.get("/map", (req, mainResponse) => {
             }).catch(error => console.log(error));
         }).catch(error => console.log(error));
     })();
-
 });
 
 //------------------------------------------------------------------//
@@ -330,7 +329,7 @@ app.get('/BuyNow', function (req, res) {
 
 //------------------------------------------------------------------//
 
-app.post('/buy', function (req) {
+app.post('/buy', function (req, res) {
 
     let phoneNo = req.body.phone;
     let fullName = req.body.fullname;
@@ -338,11 +337,36 @@ app.post('/buy', function (req) {
     let address = req.body.subject;
     let pincode = req.body.pin;
     let currPrice = req.app.get('myPrice')
-
-    let sql = "INSERT INTO `buyDrugs`(`PhoneNo` ,`PaymentMethod` , `Address` ,`FullName` ,`Pincode` , `Price`) VALUES('" + phoneNo + "','" + paymentMethod + "','" + address + "','" + fullName + "','" + pincode + "','" + currPrice + "');";
+    let sql = "INSERT INTO `buyDrugs`( `PhoneNo` ,`PaymentMethod` , `Address` ,`FullName` ,`Pincode` , `Price`) VALUES('" + phoneNo + "','" + paymentMethod + "','" + address + "','" + fullName + "','" + pincode + "','" + currPrice + "');";
     con.query(sql, (err) => {
         if (err) throw err;
     });
+    res.render('Temp',{
+        DrugName: 'hi',
+        Price: '856$'
+    })
+});
+//------------------------------------------------------------------//
+
+app.get('/temp',(req,res)=>{
+    let sql = "SELECT * FROM stores WHERE CurrentUser ='" + req.app.get('usernameL') + "'";
+    let list = []
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        for(let i = 0; i<result.length; i++){
+            list.push({
+                PharmacyName: result[i]['StoreNames'],
+                DrugAvailability: result[i]['Availabilty'],
+                DistanceFromYou: result[i]['StoreDistance'],
+                ContactNumber: result[i]['PhoneNo'],
+                CityName: result[i]['City']
+            })
+        }
+        res.render('map',{
+            Deets: list
+        })
+    });
+
 });
 
 //------------------------------------------------------------------//
@@ -362,7 +386,7 @@ app.listen(process.env.PORT || 3000, () => {
 // `PediatricUse` TEXT, `DrugInteractions` TEXT, `Contraindications` TEXT, `InfoForPatients` TEXT,
 // `GeriatricUse` TEXT, PRIMARY KEY(drug_id));
 
-// CREATE TABLE `stores` (`store_id` int NOT NULL AUTO_INCREMENT, `StoreNames` varchar(100),`SearchedLocation` varchar(100),`Availabilty` varchar(100),`StoreDistance` int,`PhoneNo` varchar(20),`City` varchar(100),PRIMARY KEY(store_id));
+// CREATE TABLE `stores` (`store_id` int NOT NULL AUTO_INCREMENT, `CurrentUser` varchar(20), `StoreNames` varchar(100),`SearchedLocation` varchar(100),`Availabilty` varchar(100),`StoreDistance` int,`PhoneNo` varchar(20),`City` varchar(100),PRIMARY KEY(store_id));
 
 // CREATE TABLE `history` (`histID` int NOT NULL AUTO_INCREMENT, `UserName` varchar(100),`DrugName` varchar(100),`Time` varchar(100),`Date` varchar(100),PRIMARY KEY(histID));
 

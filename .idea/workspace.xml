@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="more code refactors">
-      <change afterPath="$PROJECT_DIR$/images/a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Temp.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/BuyNow.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/BuyNow.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/BuyNow.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/BuyNow.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/map.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/map.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +116,12 @@
       <workItem from="1609657386006" duration="1928000" />
       <workItem from="1609664453163" duration="1832000" />
       <workItem from="1610085561519" duration="1011000" />
+      <workItem from="1610348054192" duration="617000" />
+      <workItem from="1610349059674" duration="180000" />
+      <workItem from="1610432160010" duration="609000" />
+      <workItem from="1610456679128" duration="4306000" />
+      <workItem from="1610463459011" duration="344000" />
+      <workItem from="1610464983973" duration="879000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
