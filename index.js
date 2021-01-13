@@ -7,9 +7,14 @@ const axios = require("axios")
 
 //------------------------------------------------------------------//
 
-const d = new Date();
-let currentDate = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
-let currentTime = `${d.getHours()}:${d.getMinutes()}`;
+const myDate = () => {
+    const d = new Date();
+// IST offset UTC +5:30
+    let ISTTime = new Date(d.getTime() + (330 + d.getTimezoneOffset())*60000);
+    let currentDateTime = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}, ${ISTTime.getHours()}:${ISTTime.getMinutes()}`;
+    console.log(currentDateTime);
+    return currentDateTime;
+}
 
 const CapMe = (str) => {
     let splitStr = str.toLowerCase().split(' ');
@@ -172,10 +177,22 @@ app.post("/display", (req, res) => {
                 });
             }
             let sql = "SELECT * FROM drugs WHERE DrugName ='" + responseNDC.data.results[0]["generic_name"] + "';";
+            myDate();
             con.query(sql, (err, result) => {
                 if (err) throw err;
                 if (result.length >= 1) {
-                    Render();
+                    let selectDrugHistory = "SELECT * FROM history WHERE DrugName = '" + responseNDC.data.results[0]["generic_name"] + "'";
+                    con.query(selectDrugHistory, (err,res) => {
+                        if (err) throw err;
+                        if(res.length>=1){
+                            let updateSQL = "UPDATE history SET DateTime = REPLACE(DateTime, '" + res[0]['DateTime'] +"', '" + myDate() +"');";
+                            con.query(updateSQL,(error)=>{
+                                if (error) throw error;
+                            });
+                        }
+                        Render();
+                    });
+
                 } else {
                     let drugSQL =
                         "INSERT INTO `drugs` (`DrugName`, `DosageForm`, `OverDosage`, `BrandName`, `AdminRoute`, `PharmacologicalClass`, `LabelerName`, `Description`, `ProductType`, `PediatricUse`, `DrugInteractions`, `Contraindications`, `InfoForPatients`, `GeriatricUse`) VALUES ('" +
@@ -206,12 +223,15 @@ app.post("/display", (req, res) => {
                         responseLabel.data.results[0]["information_for_patients"] +
                         "','" +
                         responseLabel.data.results[0]["geriatric_use"] +
-                        "');" +
-                        "INSERT INTO `history` (`UserName`, `DrugName`, `Date`, `Time`) VALUES ('" +
+                        "');";
+                    let historySQL = "INSERT INTO `history` (`UserName`, `DrugName`, `DateTime`) VALUES ('" +
                         req.app.get('usernameL') + "','" +
                         responseNDC.data.results[0]["generic_name"] + "','" +
-                        currentDate + "','" +
-                        currentTime + "');";
+                        myDate() + "');";
+                    con.query(historySQL, (err) => {
+                        if (err) throw err;
+
+                    });
                     con.query(drugSQL, (err) => {
                         if (err) throw err;
                         Render();
@@ -247,11 +267,11 @@ app.get("/map", (req, mainResponse) => {
             }
 
             let locationDetails = [];
-            axios.get('https://api.foursquare.com/v2/venues/search?ll='+latitude+','+longitude+'&query=pharmacy&radius=10000&client_id=BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN&client_secret=DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ&v=20210101').then(res => {
+            axios.get('https://api.foursquare.com/v2/venues/search?ll=' + latitude + ',' + longitude + '&query=pharmacy&radius=10000&client_id=BFL2Y52PUJAONSK3UICXZAH3QC2JZ2UJWJBQIISYVWB0MGVN&client_secret=DKAK11LMZZHILZWA0WSV2W4DV0UBEGU03CBVZ5FCSH0XAQEQ&v=20210101').then(res => {
                 if (res.status === 200 && res.data.response['venues'].length !== 0) {
                     for (let i = 0; i <= 4; i++) {
                         locationDetails.push({
-                            PharmacyName: res.data.response['venues'][i]['name'] ,
+                            PharmacyName: res.data.response['venues'][i]['name'],
                             DrugAvailability: availability(),
                             ContactNumber: phoneNumber(),
                             CityName: res.data.response['venues'][i]['location']['city'],
@@ -262,7 +282,7 @@ app.get("/map", (req, mainResponse) => {
                     //Insert Data Into Table
                     for (let i = 0; i <= 4; i++) {
                         let sql =
-                            "INSERT INTO `stores` (`CurrentUser`,`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('"+req.app.get('usernameL')+"','" + locationDetails[i].PharmacyName + "','" + req.query.Current_location + "','" + locationDetails[i].DistanceFromYou + "','" + locationDetails[i].DrugAvailability + "','" + locationDetails[i].ContactNumber + "','" + locationDetails[i].CityName + "');";
+                            "INSERT INTO `stores` (`CurrentUser`,`StoreNames`,`SearchedLocation`,`StoreDistance`, `Availabilty`,`PhoneNo`, `City`) VALUES ('" + req.app.get('usernameL') + "','" + locationDetails[i].PharmacyName + "','" + req.query.Current_location + "','" + locationDetails[i].DistanceFromYou + "','" + locationDetails[i].DrugAvailability + "','" + locationDetails[i].ContactNumber + "','" + locationDetails[i].CityName + "');";
                         con.query(sql, (err) => {
                             if (err) throw err;
                         });
@@ -287,12 +307,12 @@ app.get("/myHistory", (req, res) => {
         let sql = "SELECT * from history WHERE UserName = '" + req.app.get('usernameL') + "';";
         con.query(sql, (err, result) => {
             if (err) throw err;
+            console.log(result)
             if (result.length !== 0) {
                 for (let i = 0; i < result.length; i++) {
                     myList.push({
                         drugName: CapMe(result[i].DrugName),
-                        time: CapMe(result[i].Time),
-                        date: CapMe(result[i].Date)
+                        date: result[i]['DateTime']
                     });
                 }
                 res.render('History', {
@@ -302,7 +322,6 @@ app.get("/myHistory", (req, res) => {
             } else {
                 emptyList.push({
                     drugName: 'Search for a Drug First',
-                    time: '-',
                     date: '-'
                 });
                 res.render('History', {
@@ -341,19 +360,19 @@ app.post('/buy', function (req, res) {
     con.query(sql, (err) => {
         if (err) throw err;
     });
-    res.render('Temp',{
+    res.render('Temp', {
         DrugName: 'hi',
         Price: '856$'
     })
 });
 //------------------------------------------------------------------//
 
-app.get('/temp',(req,res)=>{
+app.get('/temp', (req, res) => {
     let sql = "SELECT * FROM stores WHERE CurrentUser ='" + req.app.get('usernameL') + "'";
     let list = []
     con.query(sql, (err, result) => {
         if (err) throw err;
-        for(let i = 0; i<result.length; i++){
+        for (let i = 0; i < result.length; i++) {
             list.push({
                 PharmacyName: result[i]['StoreNames'],
                 DrugAvailability: result[i]['Availabilty'],
@@ -362,7 +381,7 @@ app.get('/temp',(req,res)=>{
                 CityName: result[i]['City']
             })
         }
-        res.render('map',{
+        res.render('map', {
             Deets: list
         })
     });
@@ -388,6 +407,6 @@ app.listen(process.env.PORT || 3000, () => {
 
 // CREATE TABLE `stores` (`store_id` int NOT NULL AUTO_INCREMENT, `CurrentUser` varchar(20), `StoreNames` varchar(100),`SearchedLocation` varchar(100),`Availabilty` varchar(100),`StoreDistance` int,`PhoneNo` varchar(20),`City` varchar(100),PRIMARY KEY(store_id));
 
-// CREATE TABLE `history` (`histID` int NOT NULL AUTO_INCREMENT, `UserName` varchar(100),`DrugName` varchar(100),`Time` varchar(100),`Date` varchar(100),PRIMARY KEY(histID));
+// CREATE TABLE `history` (`histID` int NOT NULL AUTO_INCREMENT, `UserName` varchar(100),`DrugName` varchar(100),`DateTime` varchar(100),PRIMARY KEY(histID));
 
 //CREATE TABLE `buyDrugs`(`buyerID` int NOT NULL AUTO_INCREMENT,`PhoneNo` varchar(20),`PaymentMethod` varchar(20), `Address` TEXT,`FullName` varchar(20),`Pincode` int, `Price` int,PRIMARY KEY(buyerID));

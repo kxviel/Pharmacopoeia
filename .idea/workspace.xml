@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="more code refactors">
-      <change afterPath="$PROJECT_DIR$/views/Temp.ejs" afterDir="false" />
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="fixed buyNow page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/BuyNow.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/BuyNow.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/History.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/History.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +49,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -121,7 +120,8 @@
       <workItem from="1610432160010" duration="609000" />
       <workItem from="1610456679128" duration="4306000" />
       <workItem from="1610463459011" duration="344000" />
-      <workItem from="1610464983973" duration="879000" />
+      <workItem from="1610464983973" duration="6593000" />
+      <workItem from="1610508105380" duration="3724000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -207,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609496222245</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="fixed buyNow page">
+      <created>1610465900482</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1610465900482</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +247,8 @@
     <MESSAGE value="added a self executing async function for location api call" />
     <MESSAGE value="code refactors" />
     <MESSAGE value="more code refactors" />
-    <option name="LAST_COMMIT_MESSAGE" value="more code refactors" />
+    <MESSAGE value="fixed buyNow page" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed buyNow page" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
