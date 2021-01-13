@@ -11,9 +11,7 @@ const myDate = () => {
     const d = new Date();
 // IST offset UTC +5:30
     let ISTTime = new Date(d.getTime() + (330 + d.getTimezoneOffset())*60000);
-    let currentDateTime = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}, ${ISTTime.getHours()}:${ISTTime.getMinutes()}`;
-    console.log(currentDateTime);
-    return currentDateTime;
+    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}, ${ISTTime.getHours()}:${ISTTime.getMinutes()}`;
 }
 
 const CapMe = (str) => {
@@ -62,7 +60,6 @@ app.get("/", (req, res) => {
 app.post("/home", (req, res) => {
     //signinname == undefined => user logged in && loginpass == undefined => user signed up
     if (req.body.signinname === undefined) {
-        console.log("User Logged In ");
         let usernameL = req.body.loginusername;
         let passwordL = req.body.loginpass;
         app.set('usernameL', usernameL);
@@ -73,15 +70,12 @@ app.post("/home", (req, res) => {
             //if username exists in DB
             if (result.length === 1) {
                 //if user entered correct password
-                console.log("User Exists in DB");
                 con.query(sqlp, (err, result) => {
                     if (err) throw err;
                     if (result.length >= 1) {
                         //if correct pass continue
-                        console.log("Welcome " + usernameL);
                         res.sendFile(__dirname + "/views/Home.html");
                     } else {
-                        console.log("Wrong Password Bruh");
                         res.sendFile(__dirname + "/views/Error.html");
                     }
                 });
@@ -90,7 +84,6 @@ app.post("/home", (req, res) => {
             }
         });
     } else if (req.body.loginpass === undefined) {
-        console.log("User Signed In ");
         let name = req.body.signinname;
         let email = req.body.signinemail;
         let username = req.body.signinusername;
@@ -114,7 +107,6 @@ app.post("/home", (req, res) => {
                     "')";
                 con.query(insertSQL, (err) => {
                     if (err) throw err;
-                    console.log("Successful Added User");
                     res.sendFile(__dirname + "/views/Home.html");
                 });
             } else {
@@ -307,7 +299,6 @@ app.get("/myHistory", (req, res) => {
         let sql = "SELECT * from history WHERE UserName = '" + req.app.get('usernameL') + "';";
         con.query(sql, (err, result) => {
             if (err) throw err;
-            console.log(result)
             if (result.length !== 0) {
                 for (let i = 0; i < result.length; i++) {
                     myList.push({
@@ -391,9 +382,7 @@ app.get('/temp', (req, res) => {
 //------------------------------------------------------------------//
 
 //Server Launch at Port 3000
-app.listen(process.env.PORT || 3000, () => {
-    console.log("Server is Running at localhost:3000");
-});
+app.listen(process.env.PORT || 3000);
 
 //------------------------------------------------------------------//
 // CREATE TABLE `users` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),
