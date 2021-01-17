@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="fixed bug where history did not update to the latest search">
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="removed logs">
+      <change afterPath="$PROJECT_DIR$/css/Temp.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Temp.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/Temp.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,8 +14,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -47,7 +49,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -119,7 +121,11 @@
       <workItem from="1610456679128" duration="4306000" />
       <workItem from="1610463459011" duration="344000" />
       <workItem from="1610464983973" duration="6593000" />
-      <workItem from="1610508105380" duration="3987000" />
+      <workItem from="1610508105380" duration="4243000" />
+      <workItem from="1610515300468" duration="3165000" />
+      <workItem from="1610520445466" duration="1583000" />
+      <workItem from="1610528595621" duration="7472000" />
+      <workItem from="1610713381340" duration="30000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -219,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610511951419</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="removed logs">
+      <created>1610512137075</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1610512137075</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +267,8 @@
     <MESSAGE value="more code refactors" />
     <MESSAGE value="fixed buyNow page" />
     <MESSAGE value="fixed bug where history did not update to the latest search" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug where history did not update to the latest search" />
+    <MESSAGE value="removed logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed logs" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
