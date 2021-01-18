@@ -484,6 +484,6 @@ app.listen(process.env.PORT || 3000);
 
 // CREATE TABLE `STORES` (`store_id` int NOT NULL AUTO_INCREMENT, `username` varchar(255), `StoreNames` varchar(100),`SearchedLocation` varchar(100),`Availabilty` varchar(100),`StoreDistance` int,`PhoneNo` varchar(20),`City` varchar(100),PRIMARY KEY(store_id), FOREIGN KEY(username) REFERENCES USERS(username));
 
-// CREATE TABLE `HISTORY` (`histID` int NOT NULL AUTO_INCREMENT,  `username` varchar(255),`drug_id` INT NOT NULL,`DateTime` varchar(100),PRIMARY KEY(histID), FOREIGN KEY(username) REFERENCES USERS(username), FOREIGN KEY(drug_id) REFERENCES DRUGINFO(drug_id));
+// CREATE TABLE `HISTORY` (`histID` int NOT NULL AUTO_INCREMENT,  `username` varchar(255),`DateTime` varchar(100),PRIMARY KEY(histID), FOREIGN KEY(username) REFERENCES USERS(username));
 
 // CREATE TABLE `BUYMEDS`(`buyerID` int NOT NULL AUTO_INCREMENT, `username` varchar(255), `store_id` int,`PhoneNo` varchar(20),`PaymentMethod` varchar(20), `Address` TEXT,`FullName` varchar(20),`Pincode` int, `Price` int,PRIMARY KEY(buyerID), FOREIGN KEY(username) REFERENCES USERS(username), FOREIGN KEY(store_id) REFERENCES STORES(store_id));
