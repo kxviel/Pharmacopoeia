@@ -1,0 +1,71 @@
+body {
+    background-attachment: fixed;
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+    color: black;
+}
+
+.navbar {
+    background-color: #93d6eb;
+    margin: 0;
+    padding: 1%;
+}
+
+.navbar-brand {
+    color: black;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
+.container {
+    padding: 7%;
+}
+
+.searchInput {
+    border: none;
+    height: 7vh;
+    width: 50%;
+    border-radius: 54px;
+    background: #e0e0e0;
+    box-shadow: inset -5px 5px 11px #b5b5b5, inset 5px -5px 11px #ffffff;
+    margin-right: 20px;
+    padding: 2%;
+}
+
+.searchButton {
+    border: none;
+    height: 7.5vh;
+    width: 5vw;
+    border-radius: 54px;
+    background: #e0e0e0;
+    box-shadow: inset -5px 5px 11px #b5b5b5, inset 5px -5px 11px #ffffff;
+    outline: none;
+}
+.searchInput:focus {
+    outline: none;
+}
+
+.searchButton:focus {
+    outline: none;
+}
+
+.outerBody {
+    margin: 3%;
+}
+.innerBody {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 77%;
+    width: 90%;
+}

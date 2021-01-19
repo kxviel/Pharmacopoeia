@@ -1,9 +1,21 @@
+body {
+  background-image: url('../images/bg.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  color: black;
+}
+
 .bgnav {
-    background-color: #ffe2e2;
+  background-color: #93d6eb;
 }
 
 .navbar-brand {
-    font-family: "Ubuntu", cursive;
-    color: black;
-    font-size: 6.5rem;
+  font-family: "Ubuntu", cursive;
+  color: black;
+  font-size: 6.5rem;
+}
+
+.main {
+  border-radius: 25px;
+  margin-top: 2%;
 }
