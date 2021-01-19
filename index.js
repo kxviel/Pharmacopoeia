@@ -457,7 +457,7 @@ app.post("/buy", function (req, res) {
 
 app.get("/temp", (req, res) => {
     let sql =
-        "SELECT * FROM STORES WHERE CurrentUser ='" +
+        "SELECT * FROM STORES WHERE username ='" +
         req.app.get("usernameL") +
         "'";
     let list = [];

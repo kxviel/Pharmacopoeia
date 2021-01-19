@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="ui changes">
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="more ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/BuyNow.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/BuyNow.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/LogIn.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/LogIn.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/SignIn.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/SignIn.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/BuyNow.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/BuyNow.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/History.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/History.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +133,12 @@
       <workItem from="1610982569665" duration="2789000" />
       <workItem from="1610985896426" duration="1043000" />
       <workItem from="1610986998835" duration="8350000" />
-      <workItem from="1611028229651" duration="1144000" />
+      <workItem from="1611028229651" duration="1300000" />
+      <workItem from="1611031670862" duration="143000" />
+      <workItem from="1611038574650" duration="1934000" />
+      <workItem from="1611041598397" duration="2734000" />
+      <workItem from="1611046315930" duration="5101000" />
+      <workItem from="1611080792575" duration="257000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -244,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611028269766</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="more ui">
+      <created>1611029516383</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1611029516383</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,7 +296,8 @@
     <MESSAGE value="fixed bug where history did not update to the latest search" />
     <MESSAGE value="removed logs" />
     <MESSAGE value="ui changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="ui changes" />
+    <MESSAGE value="more ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="more ui" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

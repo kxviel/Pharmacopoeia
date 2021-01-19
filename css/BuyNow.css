@@ -29,16 +29,17 @@ body {
 
 .one {
     padding: 3%;
-    height: 84vh;
+    height: 80vh;
     width: 60vw;
     margin-top: 3vh;
     background-color: black;
     color: white;
     border-radius: 20px;
+
 }
 
 .two {
-    height: 84vh;
+    height: 80vh;
     width: 30vw;
     margin-top: 3vh;
     background-color: black;
@@ -49,27 +50,35 @@ body {
 
 input[type=text] {
     padding: 7px;
-    border-radius: 14px;
-    margin: 1%;
-}
-input[type=text]:focus{
-    outline: none;
+    border-radius: 25px;
+ margin-bottom: 5%;
+    margin-top: 3%;
 }
 
-input[type=number] {
-    padding: 7px;
-    border-radius: 14px;
-    margin: 1%;
-}
-input[type=number]:focus{
+input[type=text]:focus {
     outline: none;
 }
 
 input[type=tel] {
     padding: 7px;
-    border-radius: 14px;
-    margin: 1%;
+    border-radius: 25px;
+    margin-bottom: 7%;
 }
-input[type=tel]:focus{
+
+input[type=tel]:focus {
     outline: none;
+}
+
+textarea {
+    padding: 7px;
+    border-radius: 25px;
+    margin-bottom: 5%;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.myButton{
+    margin-top: 20%;
 }
