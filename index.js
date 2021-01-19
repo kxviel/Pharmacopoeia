@@ -406,7 +406,8 @@ app.get("/BuyNow", function (req, res) {
     let myPrice = Math.floor(100 + Math.random() * 900);
     app.set("myPrice", myPrice);
     res.render("BuyNow", {
-        Price: myPrice,
+        Price: `₹${myPrice}`,
+        DrugName: req.app.get("globalDrugName")
     });
 });
 
@@ -444,7 +445,7 @@ app.post("/buy", function (req, res) {
         if(result!==0){
             res.render("Temp", {
                 DrugName: req.app.get("globalDrugName"),
-                Price: `${result[0]['Price']}₹`,
+                Price: `₹${result[0]['Price']}`,
                 Phone: result[0]['PhoneNo'],
                 Name: result[0]['FullName']
             });

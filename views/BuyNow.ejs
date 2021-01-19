@@ -32,11 +32,30 @@
         <form action="/temp" style="display: flex; flex-direction: column; justify-content: space-around;align-content: space-around">
             <input type="text" placeholder="Enter Full Name" name="" required>
             <input type="tel" placeholder="Enter Phone Number" name="" required>
-            <input type="text" placeholder="" name="" required>
+            <textarea name="" placeholder="Enter Address" cols="30" rows="10" required></textarea>
+            <input type="number" placeholder="Enter Pincode" name="" required>
         </form>
     </div>
     <div class="two">
-        <p>two</p>
+       <div>
+           <p>Enter Payment Method</p>
+           <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+               <label class="form-check-label" for="inlineRadio1">1</label>
+           </div>
+           <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+               <label class="form-check-label" for="inlineRadio2">2</label>
+           </div>
+           <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
+               <label class="form-check-label" for="inlineRadio3">3</label>
+           </div>
+       </div>
+        <div>
+            <h6>Item: <%=DrugName%></h6>
+            <h6>Total: <%=Price%></h6>
+        </div>
     </div>
 </div>
 

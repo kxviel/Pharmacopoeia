@@ -28,6 +28,7 @@ body {
 }
 
 .one {
+    padding: 3%;
     height: 84vh;
     width: 60vw;
     margin-top: 3vh;
@@ -43,4 +44,32 @@ body {
     background-color: black;
     color: white;
     border-radius: 20px;
+    padding: 3%;
+}
+
+input[type=text] {
+    padding: 7px;
+    border-radius: 14px;
+    margin: 1%;
+}
+input[type=text]:focus{
+    outline: none;
+}
+
+input[type=number] {
+    padding: 7px;
+    border-radius: 14px;
+    margin: 1%;
+}
+input[type=number]:focus{
+    outline: none;
+}
+
+input[type=tel] {
+    padding: 7px;
+    border-radius: 14px;
+    margin: 1%;
+}
+input[type=tel]:focus{
+    outline: none;
 }
