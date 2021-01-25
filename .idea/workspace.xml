@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="second prototype" />
+    <list default="true" id="a20e2d60-195c-43ce-bef0-44df6f279d41" name="Default Changelist" comment="added ss">
+      <change afterPath="$PROJECT_DIR$/Extra/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Extra/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Extra/7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,6 +137,8 @@
       <workItem from="1611046315930" duration="5101000" />
       <workItem from="1611080792575" duration="257000" />
       <workItem from="1611081487694" duration="91000" />
+      <workItem from="1611081850378" duration="103000" />
+      <workItem from="1611121414741" duration="2000" />
     </task>
     <task id="LOCAL-00001" summary="added and rendered drug browsing history + fixes">
       <created>1607950046703</created>
@@ -259,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611081560410</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="added ss">
+      <created>1611081867724</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1611081867724</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +312,8 @@
     <MESSAGE value="ui changes" />
     <MESSAGE value="more ui" />
     <MESSAGE value="second prototype" />
-    <option name="LAST_COMMIT_MESSAGE" value="second prototype" />
+    <MESSAGE value="added ss" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ss" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
