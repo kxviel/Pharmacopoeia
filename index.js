@@ -336,9 +336,9 @@ app.get("/map", (req, mainResponse) => {
                   "','" +
                   req.query.Current_location +
                   "','" +
-                  locationDetails[i].DistanceFromYou +
-                  "','" +
                   locationDetails[i].DrugAvailability +
+                  "','" +
+                  locationDetails[i].DistanceFromYou +
                   "','" +
                   locationDetails[i].ContactNumber +
                   "','" +
