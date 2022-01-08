@@ -5,15 +5,20 @@ export const LoginController = (req, res) => {
   let { username, password } = req.body;
   console.log(username, password);
   //Check if username exists
-  let checkUsername = "SELECT * FROM USERS WHERE username ='" + username + "'";
-  let checkPassword = "SELECT * FROM USERS WHERE username ='" + username + "'";
-  con.query(checkUsername, (err, result) => {
+  let checkUsername = "SELECT * FROM USERS WHERE username = ?";
+  let checkPassword = "SELECT * FROM USERS WHERE password = ?";
+
+  con.query(checkUsername, [username], (err, result) => {
     if (err) throw err;
+
     //if username exists
     if (result.length >= 1) {
-      con.query(checkPassword, (err, result) => {
+      con.query(checkPassword, [password], (err, result) => {
         if (err) throw err;
-        if (result.length >= 1) {
+
+        //if password is correct
+        console.log(result[0]);
+        if (result[0]?.password === password) {
           res.sendFile(__dirname + "/views/Home.html");
         } else {
           res.render("Error", {

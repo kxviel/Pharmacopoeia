@@ -4,29 +4,22 @@ import { __dirname } from "../index.js";
 export const SignupController = (req, res) => {
   let { name, email, username, password } = req.body;
   console.log(name, email, username, password);
-  //Check if email exists
-  let checkEmail = "SELECT * FROM USERS WHERE email ='" + email + "'";
 
-  con.query(checkEmail, (err, result) => {
+  //Check if email exists
+  let checkEmail = "SELECT * FROM USERS WHERE email = ?";
+
+  con.query(checkEmail, [email], (err, result) => {
     if (err) throw err;
-    //if username exists
-    if (result.length >= 1) {
+    //if email already exists
+    if (result[0]?.email === email) {
       res.render("Error", {
         error: "User Already Exists, Please Login",
       });
     } else {
       // Add User to DB
       let insertUser =
-        "INSERT INTO `USERS` (`name`, `email`, `username`, `password`) VALUES ('" +
-        name +
-        "', '" +
-        email +
-        "', '" +
-        username +
-        "', '" +
-        password +
-        "')";
-      con.query(insertUser, (err, result) => {
+        "INSERT INTO `USERS` (`name`, `email`, `username`, `password`) VALUES (?, ?, ?, ?);";
+      con.query(insertUser, [name, email, username, password], (err, _) => {
         if (err) throw err;
         res.sendFile(__dirname + "/views/Home.html");
       });
