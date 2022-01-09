@@ -2,10 +2,9 @@ import { Capitalize } from "../Utils/Capitalize.js";
 import { con } from "../Utils/db.js";
 
 export const FetchHistory = (req, res) => {
-  console.log(req.app.globalUsername);
   let list = [];
   let getHistory = "select * from history where username = ?";
-  con.query(getHistory, [req.app.globalUsername], (err, result) => {
+  con.query(getHistory, [req.app.locals.globalUser], (err, result) => {
     console.log(err);
     console.log(result);
     if (result.length !== 0) {
@@ -16,12 +15,12 @@ export const FetchHistory = (req, res) => {
         });
       }
       res.render("History", {
-        User: Capitalize(req.app.globalUsername),
+        User: Capitalize(req.app.locals.globalUser),
         data: list,
       });
     } else {
       res.render("History", {
-        User: Capitalize(req.app.globalUsername),
+        User: Capitalize(req.app.locals.globalUser),
         data: [],
       });
     }

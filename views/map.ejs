@@ -1,51 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
+  <head>
+    <meta charset="UTF-8" />
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-            href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
+      rel="stylesheet"
     />
     <!-- Material CSS -->
     <link
-            type="text/css"
-            rel="stylesheet"
-            href="../css/materialize.css"
-            media="screen,projection"
+      type="text/css"
+      rel="stylesheet"
+      href="../css/materialize.css"
+      media="screen,projection"
     />
-    <link rel="stylesheet" href="../css/map.css">
+    <link rel="stylesheet" href="../css/map.css" />
     <title>Maps</title>
-</head>
-<body>
-<!-- NavBar -->
-<nav class="nav-wrapper" style="background-color: #93d6eb">
-      <span
-              class="brand-logo center"
-
-      ><a style="font-family: 'Sacramento', cursive; font-size: 2.0rem; color: black"
-          href="/views/Home.html">Gem Drugs</a></span
+  </head>
+  <body>
+    <!-- NavBar -->
+    <nav class="nav-wrapper" style="background-color: #93d6eb">
+      <span class="brand-logo center"
+        ><a
+          style="
+            font-family: 'Sacramento', cursive;
+            font-size: 2rem;
+            color: black;
+          "
+          href="/views/Home.html"
+          >Gem Drugs</a
+        ></span
       >
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a style="color: black" href="/BuyNow">B U Y&nbsp;&nbsp;N O W</a></li>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <a style="color: black" href="/v1/buynow">B U Y&nbsp;&nbsp;N O W</a>
+        </li>
+      </ul>
+    </nav>
+
+    <ul class="collection with-header main" style="border-radius: 15px">
+      <% Deets.forEach(function(x) { %>
+      <li
+        class="collection-item avatar"
+        style="background-color: black; color: whitesmoke; margin-bottom: 1%"
+      >
+        <span class="title"><%= x.PharmacyName ?? '-' %></span>
+        <p>
+          <%= x.DrugAvailability ?? '-' %> <br />
+          <%= x.ContactNumber ?? '-' %> <br />
+        </p>
+        <a class="secondary-content"
+          ><%= x.CityName ?? '-' %> <br /><%= x.DistanceFromYou ?? '-' %></a
+        >
+      </li>
+      <% }); %>
     </ul>
-</nav>
-
-
-    <ul class="collection with-header main" style="border-radius: 15px;" >
-        <% Deets.forEach(function(x) { %>
-            <li class="collection-item avatar" style="background-color: black; color: whitesmoke; margin-bottom: 1%">
-                <span class="title"><%= x.PharmacyName ?? '-' %></span>
-                <p >
-                    <%= x.DrugAvailability ?? '-' %> <br/>
-                    <%= x.ContactNumber ?? '-' %> <br/>
-                </p>
-                <a class="secondary-content" ><%= x.CityName ?? '-' %> <br/><%= x.DistanceFromYou ?? '-' %>m</a>
-            </li>
-        <% }); %>
-    </ul>
-
-
-</body>
+  </body>
 </html>

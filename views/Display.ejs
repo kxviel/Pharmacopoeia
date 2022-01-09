@@ -19,11 +19,11 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="../views/Home.html">H O M E</a>
         <a class="navbar-brand"><%= BrandName %></a>
-        <form class="d-flex" action="/map">
+        <form class="d-flex" method="post" action="/v1/map">
           <input
             style="height: auto"
             class="form-control me-2"
-            name="Current_location"
+            name="location"
             type="search"
             placeholder="Your Location"
             aria-label="Search"
