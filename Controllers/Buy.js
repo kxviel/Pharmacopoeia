@@ -1,10 +1,10 @@
-export const BuyController = () => {
+export const BuyController = (req, res) => {
   let phoneNo = req.body.phone;
   let fullName = req.body.fullname;
   let paymentMethod = req.body.method;
   let address = req.body.subject;
   let pincode = req.body.pin;
-  let currPrice = req.app.get("myPrice");
+  let currPrice = req.app.locals.globalPrice;
   let sql =
     "INSERT INTO `BUYMEDS`(username, PhoneNo, PaymentMethod,Address,FullName,Pincode,Price) VALUES('" +
     req.app.get("usernameL") +

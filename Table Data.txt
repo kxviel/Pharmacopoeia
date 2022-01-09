@@ -1,6 +1,6 @@
 Table Name: Pharma
 
-CREATE TABLE `USERS` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255),/ `password` varchar(255),PRIMARY KEY(username));
+CREATE TABLE `USERS` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255), `password` varchar(255),PRIMARY KEY(username));
 
 CREATE TABLE `DRUGINFO` (drug_id int NOT NULL AUTO_INCREMENT, `username` varchar(255), `DrugName` TEXT NOT NULL,
 `DosageForm` MEDIUMTEXT, `OverDosage` MEDIUMTEXT, `BrandName` MEDIUMTEXT, `AdminRoute` TEXT, `PharmacologicalClass` MEDIUMTEXT, `LabelerName` MEDIUMTEXT, `Description` MEDIUMTEXT, `ProductType` MEDIUMTEXT, `PediatricUse` MEDIUMTEXT, `DrugInteractions` MEDIUMTEXT, `Contraindications` MEDIUMTEXT, `InfoForPatients` MEDIUMTEXT, `GeriatricUse` MEDIUMTEXT, PRIMARY KEY(drug_id), FOREIGN KEY(username) REFERENCES USERS(username));

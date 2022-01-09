@@ -23,6 +23,7 @@ app.use(express.static("./"));
 app.use("/v1", router);
 app.locals.globalDrugName = "";
 app.locals.globalUser = "";
+app.locals.globalPrice = 0;
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/LogIn.html");
 });
