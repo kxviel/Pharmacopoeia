@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 //Inits
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
-const app = express();
+export const app = express();
 dotenv.config();
 
 app.use(express.json());
@@ -21,6 +21,8 @@ app.set("view engine", "ejs");
 app.use(express.static("./"));
 
 app.use("/v1", router);
+app.locals.globalDrugName = "";
+app.locals.globalUser = "";
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/LogIn.html");
 });

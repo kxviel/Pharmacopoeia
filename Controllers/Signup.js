@@ -1,5 +1,5 @@
 import { con } from "../Utils/db.js";
-import { __dirname } from "../index.js";
+import { __dirname, app } from "../index.js";
 
 export const SignupController = (req, res) => {
   let { name, email, username, password } = req.body;
@@ -16,6 +16,7 @@ export const SignupController = (req, res) => {
         error: "User Already Exists, Please Login",
       });
     } else {
+      req.app.locals.globalUser = username;
       // Add User to DB
       let insertUser =
         "INSERT INTO `USERS` (`name`, `email`, `username`, `password`) VALUES (?, ?, ?, ?);";

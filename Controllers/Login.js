@@ -1,5 +1,5 @@
 import { con } from "../Utils/db.js";
-import { __dirname } from "../index.js";
+import { __dirname, app } from "../index.js";
 
 export const LoginController = (req, res) => {
   let { username, password } = req.body;
@@ -19,6 +19,7 @@ export const LoginController = (req, res) => {
         //if password is correct
         console.log(result[0]);
         if (result[0]?.password === password) {
+          req.app.locals.globalUser = username;
           res.sendFile(__dirname + "/views/Home.html");
         } else {
           res.render("Error", {
