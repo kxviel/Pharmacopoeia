@@ -1,0 +1,12 @@
+Table Name: Pharma
+
+CREATE TABLE `USERS` (`name` varchar(100) ,`email` varchar(255) ,`username` varchar(255), `password` varchar(255),PRIMARY KEY(username));
+
+CREATE TABLE `DRUGINFO` (drug_id int NOT NULL AUTO_INCREMENT, `username` varchar(255), `DrugName` TEXT NOT NULL,
+`DosageForm` MEDIUMTEXT, `OverDosage` MEDIUMTEXT, `BrandName` MEDIUMTEXT, `AdminRoute` TEXT, `PharmacologicalClass` MEDIUMTEXT, `LabelerName` MEDIUMTEXT, `Description` MEDIUMTEXT, `ProductType` MEDIUMTEXT, `PediatricUse` MEDIUMTEXT, `DrugInteractions` MEDIUMTEXT, `Contraindications` MEDIUMTEXT, `InfoForPatients` MEDIUMTEXT, `GeriatricUse` MEDIUMTEXT, PRIMARY KEY(drug_id), FOREIGN KEY(username) REFERENCES USERS(username));
+
+CREATE TABLE `STORES` (`store_id` int NOT NULL AUTO_INCREMENT, `username` varchar(255), `StoreNames` varchar(100),`SearchedLocation` varchar(100),`Availabilty` varchar(100),`StoreDistance` int,`PhoneNo` varchar(20),`City` varchar(100),PRIMARY KEY(store_id), FOREIGN KEY(username) REFERENCES USERS(username));
+
+CREATE TABLE `HISTORY` (`histID` int NOT NULL AUTO_INCREMENT,  `username` varchar(255),`DateTime` varchar(100),PRIMARY KEY(histID), DrugName varchar(50));
+
+CREATE TABLE `BUYMEDS`(`buyerID` int NOT NULL AUTO_INCREMENT, `username` varchar(255), `store_id` int,`PhoneNo` varchar(20),`PaymentMethod` varchar(20), `Address` MEDIUMTEXT,`FullName` varchar(20),`Pincode` int, `Price` int,PRIMARY KEY(buyerID), FOREIGN KEY(username) REFERENCES USERS(username), FOREIGN KEY(store_id) REFERENCES STORES(store_id));
